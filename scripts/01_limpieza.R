@@ -11,7 +11,7 @@ library(stringr)
 # =============================================================
 # 1. Cargar datos
 # =============================================================
-dataset_graphs <- read_excel(here("data","raw","dataset_graphs.xlsx"))
+dataset_graphs <- read_excel(here("data","raw","dataset_graphs.xlsx")) #este no creo que lo vayamos a utilizar
 p_1 <- read_excel(here("data","raw","puertos_1.xlsx"))
 p_2 <- read_excel(here("data","raw","puertos_2.xlsx"))
 
@@ -67,67 +67,7 @@ View(paises_lista[["India"]])
 View(paises_lista[["United States of America"]])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# primer borrador limpieza -----
 
 
 # =============================================================
