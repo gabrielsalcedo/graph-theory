@@ -18,7 +18,7 @@
 % ------------------------------------------------
 % Title
 % ------------------------------------------------
-\title{Your Graph Theory Project Title}
+\title{Evaluación de la Vulnerabilidad de la Red Vial Primaria de Carga de Colombia Mediante Teoría de Grafos}
 
 % ------------------------------------------------
 % Authors
@@ -33,8 +33,7 @@
         Escuela de Economía y Negocios\\
         Universidad del Rosario\\
         Bogotá, Colombia\\
-        \{gabriel.salcedo, isaac.suarez, jose.catral\}@urosario.edu.co
-    }
+\{jose.catral, gabriel.salcedo, isaac.suarez\}@urosario.edu.co    }
 }
 
 \maketitle
@@ -44,114 +43,178 @@
 % I. Introducción
 % ------------------------------------------------
 \section{Introducción}
-Introduce el tema general de manera breve. Contextualiza la importancia de la teoría de grafos en esta área de estudio.
-
-Al final de esta sección, debes explicar brevemente cómo está organizado el resto del documento: ``El resto de este documento está organizado de la siguiente manera. La Sección II detalla la descripción del problema...''
-
+Una red de transporte se representa de forma natural como un
+grafo ponderado: los vértices son localidades o cruces, las aristas son los
+tramos viales que los conectan y el peso de cada arista es el costo de
+recorrerla. Sobre esa representación, la teoría de grafos ofrece herramientas
+directas para estudiarla. El algoritmo de Dijkstra \cite{dijkstra1959} calcula
+la ruta de mínimo costo entre dos puntos; la centralidad de intermediación
+\cite{brandes2001} mide qué componentes concentran el tránsito de la red; la
+eficiencia global \cite{latora2001} cuantifica cuánto se degrada el sistema al
+perder uno de ellos; y la búsqueda en profundidad \cite{tarjan1972} identifica
+los puentes, es decir, las aristas cuya remoción desconecta el grafo.
+ 
+En Colombia estas herramientas tienen una aplicación inmediata. La geografía
+montañosa y la distancia entre los centros de producción, los puertos y los
+principales mercados hacen que el transporte de carga dependa de un número
+reducido de corredores troncales y transversales, que conforman la red vial
+primaria \cite{invias_opendata}. Cuando uno de esos tramos se cierra por
+derrumbes, crecientes, bloqueos u obras, la carga debe tomar una ruta alterna
+más larga y más costosa, y en algunos casos no existe ruta alterna
+\cite{cambio_radiografia}. Saber de antemano cuáles tramos producen el mayor
+daño permitiría priorizar el mantenimiento y la inversión sobre criterios
+objetivos.
+ 
+Este proyecto modela la red vial primaria como un grafo ponderado, le asigna los
+flujos de carga reportados en el Registro Nacional de Despachos de Carga por
+Carretera (RNDC) \cite{rndc}, identifica los tramos críticos y estima el
+sobrecosto de las rutas alternas que resultarían de su cierre. El enfoque sigue
+la línea de trabajo sobre vulnerabilidad de redes viales, que mide la
+importancia de un tramo por el aumento de costo que produce su interrupción
+\cite{jenelius2006}, \cite{scott2006}. El resto del documento está organizado de
+la siguiente manera. La Sección~\ref{sec:descripcion} describe el problema y la
+Sección~\ref{sec:objetivos} presenta el objetivo general y los objetivos
+específicos. Este documento corresponde a la entrega inicial del proyecto; el
+marco teórico, el modelamiento del problema y la solución propuesta se
+desarrollan en las entregas posteriores.
 % ------------------------------------------------
 % II. Descripción del Problema
 % ------------------------------------------------
 \section{Descripción del Problema}
-Explica con detalle qué problema real o teórico estás abordando. ¿Qué está fallando o qué necesidad tecnológica/científica estás intentando resolver? Describe las limitaciones actuales del entorno.
+\label{sec:descripcion}
+
+El transporte por carretera moviliza la mayor parte de la carga interna del
+país. Solo en el año 2015, el RNDC registra cerca de $6$ millones de viajes y
+$85{,}7$ millones de toneladas despachadas entre municipios \cite{rndc}. Toda
+esa carga circula sobre una red primaria que sufre cierres frecuentes por
+eventos naturales, bloqueos y obras de mantenimiento \cite{cambio_radiografia}.
+Cada cierre obliga a desviar los vehículos por rutas más largas, lo que aumenta
+la distancia recorrida, el tiempo de viaje y el flete pagado, y ese sobrecosto
+termina reflejándose en el precio final de los bienes transportados.
+ 
+El problema es que no resulta evidente cuáles tramos son realmente críticos. Un
+tramo puede ocupar una posición central en la red y sin embargo transportar poca
+carga, porque la demanda de transporte no se reparte de manera uniforme sobre el
+territorio. Otro puede mover un volumen alto y tener una vía paralela de costo
+similar, de modo que su cierre casi no afecta al sistema. Lo que hace crítico a
+un tramo es la combinación de dos cosas: cuánta carga lo utiliza y qué tan buena
+es su mejor alternativa. Responder esa pregunta exige un modelo que integre la
+estructura física de la red con el uso real que se hace de ella, y la teoría de
+grafos permite construirlo de forma cuantitativa y reproducible, en lugar de
+depender de percepciones sobre cuáles vías son importantes.
+ 
 
 % ------------------------------------------------
 % III. Objetivos (General y Específicos)
 % ------------------------------------------------
 \section{Objetivo General y Objetivos Específicos}
-
+\label{sec:objetivos}
 \subsection{Objetivo General}
-Analizar la estructura y la vulnerabilidad de la red marítima de comercio de crudo mediante teoría de grafos, evaluando el impacto del cierre de puertos críticos sobre las rutas comerciales óptimas.
+Evaluar la vulnerabilidad de la red vial primaria de carga de Colombia mediante
+teoría de grafos, identificando sus tramos críticos y cuantificando el
+sobrecosto de transporte de las rutas alternas que resultarían de su
+interrupción.
 
 \subsection{Objetivos Específicos}
 Pasos técnicos y secuenciales necesarios para alcanzar el objetivo general:
 \begin{itemize}
-    \item Modelar la red marítima de crudo como un grafo dirigido y ponderado, a partir de registros de exportaciones e importaciones extraídos de Bloomberg, y caracterizar sus propiedades estructurales básicas.
-    \item Determinar la importancia relativa de cada puerto en el comercio de crudo mediante medidas de centralidad —grado ponderado, intermediación y cercanía—, e identificar los puertos estructuralmente críticos de la red.
-    \item Identificar las rutas de costo mínimo entre puertos bajo distintas definiciones del peso de las aristas, incorporando volumen transportado y arancel efectivo, y comparar cómo varían las rutas óptimas según el criterio de costo utilizado.
-    \item Comparar la robustez de la red frente a fallas aleatorias y a ataques dirigidos a los puertos identificados como más centrales, evaluando el efecto sobre el costo promedio de las rutas comerciales óptimas.
+    \item Construir la red vial primaria nacional como un grafo ponderado a
+    partir de la cartografía oficial de INVIAS y caracterizar su estructura:
+    orden, tamaño, componentes conexas, puentes y vértices de corte.
+ 
+    \item Construir la matriz origen--destino de carga a partir del RNDC y
+    asignarla sobre el grafo mediante rutas de costo mínimo, validando las
+    distancias estimadas contra los kilómetros reportados en los despachos.
+ 
+    \item Identificar los tramos críticos de la red contrastando su
+    centralidad topológica con la carga que efectivamente los atraviesa.
+ 
+    \item Simular el cierre de dichos tramos y cuantificar el sobrecosto de
+    transporte de la ruta alterna, así como el volumen de carga que quedaría sin
+    ruta disponible.
 \end{itemize}
 
-% ------------------------------------------------
-% IV. Marco Teórico
-% ------------------------------------------------
-\section{Marco Teórico}
-Introduce los conceptos fundamentales de la teoría de grafos requeridos para entender tu proyecto.
+% % ------------------------------------------------
+% % IV. Marco Teórico
+% % ------------------------------------------------
+% \section{Marco Teórico}
+% Introduce los conceptos fundamentales de la teoría de grafos requeridos para entender tu proyecto.
 
-\subsection{Conceptos Fundamentales}
-Define matemáticamente los componentes del modelo. Por ejemplo, un grafo se puede representar formalmente como:
-\begin{equation}
-G = (V,E)
-\end{equation}
-donde $V$ representa el conjunto de vértices y $E$ representa el conjunto de aristas.
+% \subsection{Conceptos Fundamentales}
+% Define matemáticamente los componentes del modelo. Por ejemplo, un grafo se puede representar formalmente como:
+% \begin{equation}
+% G = (V,E)
+% \end{equation}
+% donde $V$ representa el conjunto de vértices y $E$ representa el conjunto de aristas.
 
-\subsection{Algoritmos o Métodos Utilizados}
-Explica conceptualmente los teoremas o algoritmos específicos que aplicarás más adelante (ej. Algoritmo de Dijkstra, componentes conectadas, centralidad, etc.).
+% \subsection{Algoritmos o Métodos Utilizados}
+% Explica conceptualmente los teoremas o algoritmos específicos que aplicarás más adelante (ej. Algoritmo de Dijkstra, componentes conectadas, centralidad, etc.).
 
-% ------------------------------------------------
-% V. Modelamiento del Problema
-% ------------------------------------------------
-\section{Modelamiento del Problema}
-Explica detalladamente cómo traduces el problema real de la Sección II a un modelo matemático de grafos basado en la Sección IV.
+% % ------------------------------------------------
+% % V. Modelamiento del Problema
+% % ------------------------------------------------
+% \section{Modelamiento del Problema}
+% Explica detalladamente cómo traduces el problema real de la Sección II a un modelo matemático de grafos basado en la Sección IV.
 
-Abstrae los elementos del problema real de la siguiente forma:
-\begin{itemize}
-    \item \textbf{Vértices ($V$):} Representan [definición, ej. routers, ciudades, usuarios].
-    \item \textbf{Aristas ($E$):} Representan [definición, ej. cables de fibra, carreteras, relaciones de amistad].
-    \text{\textbf{Pesos de las aristas:}} Representan [definición opcional, ej. latencia, distancia en km].
-\end{itemize}
+% Abstrae los elementos del problema real de la siguiente forma:
+% \begin{itemize}
+%     \item \textbf{Vértices ($V$):} Representan [definición, ej. routers, ciudades, usuarios].
+%     \item \textbf{Aristas ($E$):} Representan [definición, ej. cables de fibra, carreteras, relaciones de amistad].
+%     \text{\textbf{Pesos de las aristas:}} Representan [definición opcional, ej. latencia, distancia en km].
+% \end{itemize}
 
-% ------------------------------------------------
-% VI. Solución Propuesta
-% ------------------------------------------------
-\section{Solución Propuesta}
-Describe aquí la estrategia teórica, lógica o algorítmica elegida para resolver el problema ya modelado. Explica la arquitectura de tu propuesta, pseudocódigo o las reglas del sistema que vas a diseñar.
+% % ------------------------------------------------
+% % VI. Solución Propuesta
+% % ------------------------------------------------
+% \section{Solución Propuesta}
+% Describe aquí la estrategia teórica, lógica o algorítmica elegida para resolver el problema ya modelado. Explica la arquitectura de tu propuesta, pseudocódigo o las reglas del sistema que vas a diseñar.
 
-% ------------------------------------------------
-% VII. Implementación de la Solución
-% ------------------------------------------------
-\section{Implementación de la Solución}
-Detalla el desarrollo práctico real de tu propuesta. Explica las herramientas de software empleadas (ej. Python con NetworkX, MATLAB, C++), cómo procesaste los datos, librerías críticas o detalles de hardware si los hubiera.
+% % ------------------------------------------------
+% % VII. Implementación de la Solución
+% % ------------------------------------------------
+% \section{Implementación de la Solución}
+% Detalla el desarrollo práctico real de tu propuesta. Explica las herramientas de software empleadas (ej. Python con NetworkX, MATLAB, C++), cómo procesaste los datos, librerías críticas o detalles de hardware si los hubiera.
 
-% ------------------------------------------------
-% VIII. Resultados Obtenidos
-% ------------------------------------------------
-\section{Resultados Obtenidos}
-Presenta de forma cuantitativa y cualitativa los hallazgos de tus experimentos, simulaciones o ejecuciones de código.
+% % ------------------------------------------------
+% % VIII. Resultados Obtenidos
+% % ------------------------------------------------
+% \section{Resultados Obtenidos}
+% Presenta de forma cuantitativa y cualitativa los hallazgos de tus experimentos, simulaciones o ejecuciones de código.
 
-% Ejemplo de Figura (Las leyendas van ABAJO en formato IEEE)
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\columnwidth]{graph.png} % Asegúrate de tener esta imagen en Overleaf o comenta esta línea
-    \caption{Representación en grafo del modelo propuesto.}
-    \label{fig:graph}
-\end{figure}
+% % Ejemplo de Figura (Las leyendas van ABAJO en formato IEEE)
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\columnwidth]{graph.png} % Asegúrate de tener esta imagen en Overleaf o comenta esta línea
+%     \caption{Representación en grafo del modelo propuesto.}
+%     \label{fig:graph}
+% \end{figure}
 
-Como se observa en la Fig.~\ref{fig:graph}, la topología de la red muestra las propiedades clave analizadas.
+% Como se observa en la Fig.~\ref{fig:graph}, la topología de la red muestra las propiedades clave analizadas.
 
-% Ejemplo de Tabla (Las leyendas van ARRIBA en formato IEEE con números romanos)
-\begin{table}[H]
-    \centering
-    \caption{Propiedades del Grafo de la Red}
-    \label{tab:properties}
-    \begin{tabular}{lc}
-        \toprule
-        Propiedad & Valor \\
-        \midrule
-        Número de vértices & 10 \\
-        Número de aristas & 15 \\
-        Grado promedio & 3.0 \\
-        Diámetro de la red & 4 \\
-        \bottomrule
-    \end{tabular}
-\end{table}
+% % Ejemplo de Tabla (Las leyendas van ARRIBA en formato IEEE con números romanos)
+% \begin{table}[H]
+%     \centering
+%     \caption{Propiedades del Grafo de la Red}
+%     \label{tab:properties}
+%     \begin{tabular}{lc}
+%         \toprule
+%         Propiedad & Valor \\
+%         \midrule
+%         Número de vértices & 10 \\
+%         Número de aristas & 15 \\
+%         Grado promedio & 3.0 \\
+%         Diámetro de la red & 4 \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
 
-En la Tabla~\ref{tab:properties} se resumen las métricas estructurales obtenidas tras la ejecución del algoritmo sobre la solución implementada.
+% En la Tabla~\ref{tab:properties} se resumen las métricas estructurales obtenidas tras la ejecución del algoritmo sobre la solución implementada.
 
-% ------------------------------------------------
-% IX. Conclusiones
-% ------------------------------------------------
-\section{Conclusiones}
-Resume los logros principales del proyecto basándote en los resultados. Explica directamente cómo el uso de la teoría de grafos permitió solucionar el problema y menciona ideas puntuales para trabajos futuros o mejoras del sistema \cite{reference1}.
+% % ------------------------------------------------
+% % IX. Conclusiones
+% % ------------------------------------------------
+% \section{Conclusiones}
+% Resume los logros principales del proyecto basándote en los resultados. Explica directamente cómo el uso de la teoría de grafos permitió solucionar el problema y menciona ideas puntuales para trabajos futuros o mejoras del sistema \cite{reference1}.
 
 % ------------------------------------------------
 % Bibliografía
