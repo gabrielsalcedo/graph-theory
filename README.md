@@ -7,11 +7,6 @@ La red vial primaria se modela como un grafo ponderado por **costo económico** 
 tonelada) para identificar los corredores críticos del transporte de carga y medir cuánto
 cuestan las rutas alternas cuando se cierra una vía.
 
-![Grafo de análisis](outputs/figuras/grafo_analisis_mapa.png)
-
-**¿Cómo se llegó a este grafo?** Ver [RECUENTO.md](RECUENTO.md): cada paso, desde la
-limpieza de las bases de datos hasta el grafo final, con sus decisiones y cifras.
-
 ## Estructura
 
 ```
@@ -103,7 +98,3 @@ por el corredor. Es conexo y planar, y tiene 3 puentes, entre ellos Buenaventura
   [Colombia: Roads](https://data.humdata.org/dataset/colombia-roads).
 - **Carga:** Registro Nacional de Despachos de Carga (RNDC) 2015, Ministerio de Transporte.
 - **Municipios:** DIVIPOLA, DANE.
-
-`invias.zip` pesa 68 MB: GitHub lo acepta (el límite es 100 MB), aunque muestra una
-advertencia por pasar de 50 MB. Los archivos de más de 100 MB y los resultados binarios
-que se regeneran están en `.gitignore`.
