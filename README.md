@@ -12,8 +12,6 @@ cuestan las rutas alternas cuando se cierra una vía.
 ```
 graphs-appl/
 ├── README.md                        este archivo
-├── RECUENTO.md                      paso a paso: de los datos al grafo final
-├── environment.yml                  entorno de Python (conda)
 ├── graphs-appl.Rproj                proyecto de RStudio
 ├── data/
 │   ├── raw/                         datos de origen
