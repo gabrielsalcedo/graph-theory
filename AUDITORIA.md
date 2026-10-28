@@ -41,6 +41,33 @@ Consecuencias:
 - La simulación de cierres puede variar levemente en lo que pasa por Cali–Palmira (se
   revisa en el lote 4).
 
+### 2.1 Cierres, intermediación y carga (lote 4)
+
+El código migrado de los pasos 05, 07 y 08 da archivos idénticos byte a byte al original
+(`cierres_aristas.csv`, `cierres_tramos.csv`, `intermediacion_y_carga.csv` y las 7
+figuras). Frente a lo guardado en `graphs-appl`:
+
+| Cifra | Guardada | Entorno fijado |
+|---|---|---|
+| Intermediación y carga x_e (77 aristas) | — | idénticas en todas |
+| Spearman C_B vs x_e | 0,76 | 0,76 |
+| Puentes: carga sin ruta | 9,45 / 0,98 / 0,97 Mt | igual |
+| Grupos (crítico, importante, vulnerable, secundario, sin carga) | 18, 14, 17, 18, 10 | igual (ninguna arista cambia de grupo) |
+| Mayor sobrecosto: Buga–Zarzal | 906,8 mil M COP/año | **908,6** mil M (14 días: 34,8 en ambos) |
+| 2.º y 3.º: El Guamo–El Carmen, Bosconia–Aguachica | 687,3 y 473,0 | igual |
+| Aristas cuyo sobrecosto cambia | — | 11, todas en el Valle (por Cali–Palmira), máx. ±3,0 mil M |
+| Tramos de INVIAS simulados | 242 (100 cierres distintos) | **243** (100 cierres distintos; entra el tramo 371) |
+
+Tiempos (entorno fijado, Windows): paso 02 ≈ 37 s, 03 ≈ 126 s, 04–08 ≈ 45 s; todo
+`ejecutar_todo.py` ≈ 2,5 min. La simulación de cierres tarda 3 s, así que no se optimizó.
+
+### 2.2 Entorno de conda sin activar
+
+Si se llama a `python.exe` del entorno sin `conda activate`, Windows no encuentra las
+DLL de MKL y numpy se cierra sin mensaje (código `0xC06D007F`) en la primera
+multiplicación de matrices (la correlación de Spearman del paso 07). Con el entorno
+activado funciona. El README lo advierte.
+
 **Decisión del equipo:** se aceptan los resultados del entorno fijado y se regeneran las
 salidas. Hay que actualizar 841/970 por 842/972 en `CLAUDE.md` (§2) y `RECUENTO.md`; el
 documento de la entrega 2 no cita esas cifras.

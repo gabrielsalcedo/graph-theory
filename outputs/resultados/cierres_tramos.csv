@@ -1,0 +1,244 @@
+id_tramo,codigo_via,sector,km_tramo,aristas_cerradas,sobrecosto_cop_anual,sin_ruta_t
+459,4001,Intersección Citronela - Córdoba,6.1,e60,0.0,9447090.4
+525,4001,Córdoba - Cruce Ruta 40 (Loboguerrero),54.4,e60,0.0,9447090.4
+536,4001,Córdoba - Cruce Ruta 40 (Loboguerrero),5.6,e60,0.0,9447090.4
+575,40VLA,Intersección Sena - Intersección Citronela,12.4,e60,0.0,9447090.4
+3432,4001,Córdoba - Cruce Ruta 40 (Loboguerrero),14.2,e60,0.0,9447090.4
+603,6204,Puente Aurra - Medellín,54.9,"e72, e31, e01",0.0,8136397.4
+88,9007,Barranquilla - Santa Marta,129.5,"e07, e12",0.0,2730512.7
+159,7009,El Zulia - Cúcuta,8.5,"e40, e05",0.0,2053038.0
+234,6601,Barrancabermeja - Cruce Ruta 45 (La Lizama),32.0,"e73, e35",27965541654.3,1468540.8
+355,29RS01,Pereira - Cerritos,19.1,"e49, e26",101683164370.4,1242599.2
+372,29RSC,Intersección El Pollo - Intersección El Mandarino (3),13.8,"e49, e26",101683164370.4,1242599.2
+43,4007,Intersección Séptima Brigada - PR 0+0654,0.7,e10,0.0,978948.0
+53,4008,Puerto López - Puerto Gaitán,108.6,e10,0.0,978948.0
+114,4007,Villavicencio - Paso por el Puente sobre el Río La Balsa -Puerto Lopez,77.6,e10,0.0,978948.0
+425,56AN02,Don Diego - Rionegro - Marinilla,16.4,"e41, e56, e15",102430343486.8,971311.2
+278,5601,Glorieta Las Palmas - La Unión,38.4,"e41, e56",22959561596.1,971311.2
+153,5601,La Unión - Sonsón,54.9,e41,0.0,971311.2
+376,2505,Paso Nacional por Palmira,10.8,"e71, e70, e50",42202898989.9,960275.1
+500,2506,Andalucía - La Paila -La Victoria,82.8,"e54, e49",952174570064.9,0.0
+334,2505,Buga - Andalucía,73.4,e54,908579033346.9,0.0
+335,25VLE,Variante de Tuluá,6.1,e54,908579033346.9,0.0
+415,25VLG,Variante de Bugalagrande,3.8,e54,908579033346.9,0.0
+129,2515,Puerta de Hierro - Carreto,171.9,"e67, e28",695508671561.4,0.0
+491,2510,Medellìn - Hoyo Rico,79.8,"e72, e01, e04",548707371707.1,0.0
+188,4516,San Roque - Bosconia,117.6,e08,472964744396.4,0.0
+200,4515,La Mata - San Roque,127.4,e08,472964744396.4,0.0
+490,4514,San Alberto - La Mata,48.9,e08,472964744396.4,0.0
+1832,4514,San Alberto - La Mata,3.7,e08,472964744396.4,0.0
+2231,4514,San Alberto - La Mata,17.5,e08,472964744396.4,0.0
+561,4507,El Espinal - Girardot,19.4,"e21, e68, e25",447623577327.7,0.0
+450,5501,Paso Nacional Por Tocancipá,4.4,"e66, e76",438052331667.7,0.0
+469,40TLC,Variante de Ibague,32.0,"e63, e29",403438209305.0,0.0
+266,4003,Cajamarca - Puente Cajamarca - Ibagué,33.0,e29,383857640578.0,0.0
+311,40QN01,Club Campestre - El Caimo,9.0,e29,383857640578.0,0.0
+314,4002,La Paila - Club Campestre,42.3,e29,383857640578.0,0.0
+380,40QN04,La Española - El Caimo,2.3,e29,383857640578.0,0.0
+383,4002A,La Española - Calarcá,11.3,e29,383857640578.0,0.0
+604,4003A,Calarcá - Cajamarca,31.8,e29,383857640578.0,0.0
+629,4003,Armenia - La Línea,49.8,e29,383857640578.0,0.0
+265,45A04,Bogotá - Cajicá,28.0,e66,327249187466.2,0.0
+449,5501,Bogotá - Tocancipá,38.4,e66,327249187466.2,0.0
+455,55CND,Variante Briceño,4.8,e66,327249187466.2,0.0
+11032,2516,Palmar de Varela - Barranquilla,12.7,e77,326451604002.4,0.0
+11433,2516,Palmar de Varela - Barranquilla,31.3,"e77, e43",326451604002.4,0.0
+232,45AST08,Palenque - La Cemento,15.0,"e47, e37, e33",298571514346.7,0.0
+16,25CRA,Variante de Planeta Rica,5.6,"e01, e04",282307568754.4,0.0
+22,25ANH,Variante de Caucasia,5.4,"e01, e04",282307568754.4,0.0
+144,2512,Tarazá - Caucasia,60.5,"e01, e04",282307568754.4,0.0
+156,2510,Hoyo Rico - Los Llanos,35.6,"e01, e04",282307568754.4,0.0
+157,2511,Los Llanos - Tarazá,124.2,"e01, e04",282307568754.4,0.0
+187,25SCA,Variante Oriental de Sincelejo,13.1,e28,282307568754.4,0.0
+477,2515,Sincelejo - Puerta de Hierro,33.9,e28,282307568754.4,0.0
+484,2514,La Ye - Sincelejo,88.8,e28,282307568754.4,0.0
+554,2513,Caucasia - Planeta Rica,60.0,"e01, e04",282307568754.4,0.0
+30,3603,Ortega - Guamo,35.8,e68,271912826350.9,0.0
+38,4507,Paso Nacional  por El Guamo,3.9,e68,271912826350.9,0.0
+67,4507,Castilla - Girardot,11.7,e68,271912826350.9,0.0
+70,4507,Paso Nacional por El Espinal,6.6,e68,271912826350.9,0.0
+5,45CSE,Variante al Poblado de Minas,3.4,e57,230984665776.4,0.0
+1033,4514,San Alberto - La Mata,1.9,e57,230984665776.4,0.0
+1432,4514,San Alberto - La Mata,51.2,e57,230984665776.4,0.0
+1831,4514,San Alberto - La Mata,68.7,e57,230984665776.4,0.0
+128,4005,Fusagasugá - Silvania - Bogotá (Bosa),111.8,e21,190432976518.3,0.0
+253,40CNC,Variante de Fusagasugá,12.7,e21,190432976518.3,0.0
+269,40TLE,Variante Melgar,8.2,e21,190432976518.3,0.0
+270,4005,Girardot - Fusagasugá,111.4,e21,190432976518.3,0.0
+476,45TLG,Variante de Girardot (Intersección San Rafael - El Paso),19.7,e21,190432976518.3,0.0
+121,2506,Cartago - Cerritos,17.8,e49,188548508108.9,0.0
+353,25VLH,Variante de Zarzal,10.4,e49,188548508108.9,0.0
+423,2506,La Victoria - Cartago,76.9,e49,188548508108.9,0.0
+131,25BL02,Carreto - Cruz del Viso,25.2,e52,180164541038.7,0.0
+480,9005,Cruz del Viso - Cartagena,68.0,e52,180164541038.7,0.0
+87,4518,Paso Nacional por Aracataca - Ye de Ciénaga,51.2,e12,172298966534.8,0.0
+89,4518,Río Ariguaní - Paso Nacional por Aracataca,35.7,e12,172298966534.8,0.0
+189,4517,Bosconia - Río Ariguaní,34.0,e12,172298966534.8,0.0
+194,45MG02,Variante de Ye de Ciénaga,2.1,e12,172298966534.8,0.0
+195,45MGB,Variante de Aracataca,7.2,e12,172298966534.8,0.0
+503,6004,Medellín - Santuario,104.3,"e74, e15",151803988187.6,0.0
+29,45TL10,Cruce Ruta 45 (Los Arbolitos) - Cruce Ruta 40 (Terminal),2.8,e63,144476158991.0,0.0
+468,40TLF,Variante Picaleña,33.2,e63,144476158991.0,0.0
+586,4004,Ibague (Puente Blanco) - Cruce Ruta 45 (Espinal),51.5,e63,144476158991.0,0.0
+593,40TLD,Variante Gualanday (Calzada Derecha),4.9,e63,144476158991.0,0.0
+546,4001,Cruce Ruta 40 (Loboguerrero) - Buga,44.8,e58,137796648061.0,0.0
+3434,4001,Cruce Ruta 40 (Loboguerrero) - Buga,18.7,e58,137796648061.0,0.0
+4231,4001,Cruce Ruta 40 (Loboguerrero) - Buga,21.3,e58,137796648061.0,0.0
+552,5008,Río Seco - Villeta,6.0,"e20, e18, e45",134331879527.0,0.0
+589,2504,Santander de Quilichao - Ye de Villa Rica,28.2,"e55, e50",127697001616.6,0.0
+395,2507,Remolinos - Cauyá,18.2,e26,122458120373.1,0.0
+396,2507,La Virginia - Remolinos,26.6,e26,122458120373.1,0.0
+408,2508,Cauyá - La Felisa,61.1,e26,122458120373.1,0.0
+417,2507,Cerritos - La Virginia,10.2,e26,122458120373.1,0.0
+486,2508,La Felisa - La Pintada,47.9,e64,122373733127.3,0.0
+8,4510,Puerto Salgar - Río Ermitaño,187.5,"e42, e45, e09",120426054696.5,0.0
+391,4510,Puente Puerto Salgar,0.7,e45,116533083471.9,0.0
+451,4510,Puente Puerto Salgar - Caño Alegre,0.3,e45,116533083471.9,0.0
+550,4510,Viaducto Honda - Entrada Puente Puerto Salgar,36.4,e45,116533083471.9,0.0
+448,5501,Tocancipá - Chocontá,66.5,"e76, e23",111155027766.9,0.0
+51,40CN01,El Portal - El Antojo,11.0,e32,103520866376.7,0.0
+294,4006,Bogotá (El Portal) - Villavicencio,93.7,e32,103520866376.7,0.0
+130,2516,Calamar - Palmar de Varela,54.3,e43,96657454510.3,0.0
+595,2515,Carreto - Calamar,30.9,e43,96657454510.3,0.0
+11033,6210,Cruce ruta 55 Duitama - La Ye - Sogamoso,8.3,"e23, e02",95749009833.6,0.0
+452,55BYA,Variante de Tunja,35.5,e23,95733911582.1,0.0
+466,5501,Chocontá - Tunja,67.1,e23,95733911582.1,0.0
+467,5501,Chocontá - Tunja,17.7,e23,95733911582.1,0.0
+489,5502,Tunja - Duitama,94.2,e23,95733911582.1,0.0
+9831,5501,Chocontá - Tunja,28.2,e23,95733911582.1,0.0
+10231,5501,Chocontá - Tunja,2.7,e23,95733911582.1,0.0
+10232,5501,Chocontá - Tunja,2.4,e23,95733911582.1,0.0
+8233,4513,Rio Sogamoso -San Alberto,13.1,"e73, e44",93803892734.4,0.0
+54,5008,Honda - Villeta,58.4,e16,90079167196.1,0.0
+460,5008,Villeta - Bogotá,167.7,e16,90079167196.1,0.0
+203,6005,Peaje Cocorna - Cruce Ruta 45 (Caño Alegre),132.2,e15,86877960866.2,0.0
+478,56AN02,Don Diego - Rionegro - Marinilla,5.8,e15,86877960866.2,0.0
+596,6005,Santuario - Peaje Cocorna,3.2,e15,86877960866.2,0.0
+21,80MGA,Variante de Pueblo Nuevo,6.1,e13,79230448220.0,0.0
+224,8001,Carmen de Bolívar - Plato,40.9,e13,79230448220.0,0.0
+225,8002,Plato – Pueblo Nuevo,100.9,e13,79230448220.0,0.0
+226,8003,Pueblo Nuevo – Bosconia – Valledupar,138.9,e13,79230448220.0,0.0
+158,2514,Planeta Rica - La Ye,51.8,e61,76771988734.5,0.0
+127,4511,Río Ermitaño - La Lizama,182.6,"e35, e14, e42",66148436843.6,0.0
+37,4506,Paso Nacional por Natagaima,3.5,e27,64401536093.3,0.0
+59,4506,Natagaima - Castilla,20.3,e27,64401536093.3,0.0
+60,4506,Neiva - Natagaima,82.7,e27,64401536093.3,0.0
+623,UF1,Por Definir,78.3,e35,55793232685.7,0.0
+506,2505,Palmira - Buga,80.2,e70,50622021840.6,0.0
+524,2505,Cali - Palmira,47.3,"e71, e50",48738464419.7,0.0
+244,1901,Cali - Cruce Ruta 40 (Loboguerrero),51.4,e53,45958094840.8,0.0
+99,5505,Pamplona - Los Patios,62.1,e40,45680232340.4,0.0
+169,5505,Presidente - Pamplona,68.0,"e24, e40, e02, e06",45680232340.4,0.0
+600,5505B,Anillo Vial de Occidente,21.3,e40,45680232340.4,0.0
+619,5505,Los Patios - Cúcuta,14.4,e40,45680232340.4,0.0
+371,2301,Cali - Yumbo,22.3,e71,41384229215.8,0.0
+611,23VL01,Glorieta Cencar - Aeropuerto - Cruce Ruta 25,32.3,e71,41384229215.8,0.0
+272,45A07,San Gil - Bucaramanga,26.2,e33,37755831673.1,0.0
+296,45A07,San Gil - Bucaramanga,82.9,"e33, e30",37755831673.1,0.0
+298,45AST08,Floridablanca - Palenque,20.6,e33,37755831673.1,0.0
+217,45A08,La Cemento - Rionegro,18.0,e37,37522651267.5,0.0
+218,45A08,Río Negro - San Alberto,75.7,e37,37522651267.5,0.0
+52,7008,Ocaña - Alto del Pozo,71.1,e05,34230732461.9,0.0
+105,7009,Sardinata - El Zulia,57.5,e05,34230732461.9,0.0
+185,7007,Río de Oro - Ocaña,13.4,e05,34230732461.9,0.0
+199,70NSA,Variante Sardinata,5.5,e05,34230732461.9,0.0
+519,7007,Aguaclara - Río de Oro,43.6,e05,34230732461.9,0.0
+555,7008,Alto El Pozo - Sardinata,58.4,e05,34230732461.9,0.0
+146,2702,Salamina - Palermo,61.2,e07,32985926761.2,0.0
+290,5007,Mariquita - Honda (Puente Luis Ignacio Andrade),18.9,"e20, e18",29745397933.8,0.0
+390,50CL02,Tres Puertas - La Estrella,16.0,e51,28974331351.6,0.0
+430,2903,La Estrella - La Felisa,26.2,e51,28974331351.6,0.0
+431,5005,Tres Puertas -La Manuela,7.3,e51,28974331351.6,0.0
+487,5005,La Manuela - Estación Uribe,28.2,e51,28974331351.6,0.0
+215,6602,Cruce Ruta 45 (La Fortuna) - Lebrija,57.0,e47,28778169411.4,0.0
+418,6602,Lebrija - Palenque,25.8,e47,28778169411.4,0.0
+125,45A06,Puente Nacional - San Gil,124.7,"e30, e62",25878959875.1,0.0
+297,45A05,Ubaté - Puente Nacional,94.5,"e38, e62",25878959875.1,0.0
+464,45A04,Zipaquirá - Ubaté,47.8,e38,25878959875.1,0.0
+530,45ACND,Variante Portachuelo - Casablanca,7.0,e38,25878959875.1,0.0
+171,5503,Duitama - La Palmera,141.0,"e46, e02, e06",24400386885.2,0.0
+237,6603,Cuestaboba - Pamplona,54.3,e24,24026555026.6,0.0
+238,6603,Bucaramanga - Cuestaboba,70.1,e24,24026555026.6,0.0
+277,5601,Medellín - Glorieta Las Palmas,10.1,e56,23285589909.3,0.0
+406,2509,Primavera  - Ancón Sur,20.3,e56,23285589909.3,0.0
+407,2509,Ancón Sur - Medellín,15.8,e56,23285589909.3,0.0
+91,5006,Puente La Libertad - Fresno,82.3,e18,18163598163.9,0.0
+177,5005,Estación Uribe - Puente La Libertad,17.4,e18,18163598163.9,0.0
+196,5007,Fresno - Mariquita,26.0,e18,18163598163.9,0.0
+507,4513,La Lizama -Rio Sogamoso,89.5,e44,14362372292.2,0.0
+140,90BLC,Variante de Cartagena y accesos,17.3,e34,14188214157.6,0.0
+291,25ATA,Variante Palmar de Varela - Sabanagrande,21.6,e34,14188214157.6,0.0
+292,90AT01,Sabana - Palmar de Varela,39.3,e34,14188214157.6,0.0
+481,9006,Pensales - Barranquilla,91.9,e34,14188214157.6,0.0
+513,9006,Cartagena- Pendales,55.9,e34,14188214157.6,0.0
+155,2509,La Pintada - Primavera,53.1,e59,12913715727.5,0.0
+495,2508,La Pintada,0.6,e59,12913715727.5,0.0
+475,4305,Ibagué - Mariquita,105.6,e20,11781593706.7,0.0
+137,6205,Barbosa - Cisneros,43.4,e11,10149717350.6,0.0
+175,6206,Cisneros - Alto de Dolores,40.1,e11,10149717350.6,0.0
+176,6206,Cisneros - Puerto Berrío (Incluye el Puente sobre el Río Magdalena),54.1,e11,10149717350.6,0.0
+229,6206,Puerto Olaya - Cruce Ruta 45,15.4,e11,10149717350.6,0.0
+274,6205,Hatillo - Barbosa,9.0,e11,10149717350.6,0.0
+295,6206,Paso Nacional por Puerto Berrío (Incluye el Puente sobre el Río Magdalena),0.4,e11,10149717350.6,0.0
+543,6205,Paso Nacional por Cisneros,2.3,e11,10149717350.6,0.0
+553,6205,Paso Nacional por Barbosa,0.6,e11,10149717350.6,0.0
+565,6206,Paso Nacional por Puerto Berrío (Incluye el Puente sobre el Río Magdalena),3.2,e11,10149717350.6,0.0
+5431,6206,Paso Nacional por Cisneros,0.5,e11,10149717350.6,0.0
+139,6204,Santafé de Antioquia - Puente Aurra,16.0,e31,10061638617.1,0.0
+379,25B01,La Pintada - Peñalisa,40.6,e65,10061638617.1,0.0
+382,25B01,La Pintada - Via a Peñalisa,1.2,e65,10061638617.1,0.0
+384,25B02,Bolombolo - Santafé de Antioquia,72.5,e31,10061638617.1,0.0
+568,6003,Peñalisa - Primavera,43.5,"e69, e65",10061638617.1,0.0
+15,2504,Puente Valencia sobre el río Cauca - Cali,20.7,e55,9344054222.6,0.0
+497,2504,Puente Valencia sobre el río Cauca-Crucero Jamundí,8.6,e55,9344054222.6,0.0
+542,2504,Ye de Villa Rica - Jamundí,7.0,e55,9344054222.6,0.0
+64,6403,Cruce Ruta 45A (San Gil) - Onzaga,76.6,e36,8872874243.2,0.0
+135,55BY11,Santa Rosita - Límites Departamento de Boyacá,6.9,e36,8872874243.2,0.0
+136,55BY11,Limites Departamento de Boyacá - Onzaga,23.0,e36,8872874243.2,0.0
+45,5504,La Palmera - Presidente,100.9,"e02, e06",5225707051.1,0.0
+145,55STA,Variante de Concepción,2.2,"e02, e06",5225707051.1,0.0
+18,43HL02-1,EL Juncal-Casa Blanca,9.0,e03,3603619477.4,0.0
+34,4505,Garzón - Neiva,107.0,e03,3603619477.4,0.0
+116,2402,Candelaria - Laberinto,100.9,e03,3603619477.4,0.0
+320,2602,Popayán (Crucero) - Guadualejo,111.2,e03,3603619477.4,0.0
+346,2602A,Piendamó - Totoró,42.4,e03,3603619477.4,0.0
+362,3701,Puerto Valencia - Guadualejo,10.5,e03,3603619477.4,0.0
+363,3701,La Plata - Puerto Valencia,21.3,e03,3603619477.4,0.0
+446,43HL02,Casa Blanca-Neiva,9.0,e03,3603619477.4,0.0
+447,45HL06,El Pozo- El Juncal,4.9,e03,3603619477.4,0.0
+567,2504,Popayán - Santander de Quilichao,79.9,e03,3603619477.4,0.0
+615,25CCA,Paso por Santander de Quilichao,5.6,e03,3603619477.4,0.0
+7,4508,Girardot - Cambao,88.7,e25,2750873224.6,0.0
+501,4509,Cambao - Cruce Ruta 50,39.4,e25,2750873224.6,0.0
+562,4004B,Variante Chicoral,51.5,e25,2750873224.6,0.0
+579,40TL06,Cruce Ruta 40 (Variante Chicoral) - Cruce Ruta 45 (Girardot),8.2,e25,2750873224.6,0.0
+330,25CCD,Variante Puerto Tejada,6.1,e50,2119382836.5,0.0
+387,2504A,Límites Cauca - Palmira,38.0,e50,2119382836.5,0.0
+522,25CCC,Ye de Villa Rica - Límites Cauca,3.3,e50,2119382836.5,0.0
+523,2504A,Ye de Villa Rica - Límites Cauca,22.7,e50,2119382836.5,0.0
+183,6208,Landázuri - Barbosa,68.8,e14,1046518938.3,0.0
+236,6207,Cruce Puerto Araujo - Landázuri,63.4,e14,1046518938.3,0.0
+39,6511,Barranca de Upía - Monterrey,50.7,"e19, e39",0.0,0.0
+49,5607,Brisas - Guateque,38.2,e22,0.0,0.0
+62,5608,El Secreto - Aguaclara,14.1,e22,0.0,0.0
+92,6512,Monterrey - Yopal,102.2,e39,0.0,0.0
+95,65MTF,Variante de Restrepo,1.8,e19,0.0,0.0
+100,6006,Cruce Ruta 45 (Dos y Medio) - Otanche,94.6,e09,0.0,0.0
+141,6007,Otanche - Río Minero,31.8,e09,0.0,0.0
+154,2310,Planeta Rica - Montería,49.6,"e01, e48",0.0,0.0
+172,6211,El Crucero - Aguazul,101.0,"e17, e02",0.0,0.0
+178,6211,Sogamoso - El Crucero,16.0,"e17, e02",0.0,0.0
+180,62BY05,Paso Nacional por Sogamoso,3.9,"e17, e02",0.0,0.0
+235,6007,Río Minero - Chiquinquirá,57.6,e09,0.0,0.0
+251,5608,Guateque - El Secreto,78.4,e22,0.0,0.0
+268,6510,Villavicencio - Barranca de Upía,106.8,e19,0.0,0.0
+426,2103,Paso Nacional por Cereté,4.3,"e01, e48",0.0,0.0
+438,2103,Montería - Cereté,15.8,"e01, e48",0.0,0.0
+465,55CN03,Cruce Ruta 55 (Desviación del Sisga) - Cruce Ruta 56,6.8,e22,0.0,0.0
+485,7402,Cereté - Cruce Ruta 25 (La Ye),56.0,e75,0.0,0.0
+488,62BY05,La Ye - Tibasosa - Sogamoso,13.1,"e17, e02",0.0,0.0
+502,6003,La Mansa - Primavera,7.4,e69,0.0,0.0
+580,6003,La Mansa - Primavera,1.9,e69,0.0,0.0
+587,6003,La Mansa - Primavera,1.4,e69,0.0,0.0
+598,74CRA,Variante Cereté,6.7,e75,0.0,0.0
+11034,6210,Cruce ruta 55 Duitama - La Ye - Sogamoso,13.2,e17,0.0,0.0

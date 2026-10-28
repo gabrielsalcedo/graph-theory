@@ -1,0 +1,78 @@
+id_arista,u,v,nombre,codigos_via,km,intermediacion,fraccion_pares,carga_t,es_puente,fraccion_carga,rango_intermediacion,rango_carga
+e54,M76111,n2066,Guadalajara De Buga – cr. Zarzal,2505; 25VLE; 2506; 25VLG,57.19,97.0,0.3233,9500976.0,False,0.2173,1,2
+e45,n37,n2989,cr. Puerto Triunfo – cr. Honda,5007; 5008; 4510; 45CNA,82.71,81.0,0.27,8350059.0,False,0.191,2,5
+e74,M05308,M05615,Girardota – Rionegro,6004,35.27,69.0,0.23,9005059.0,False,0.206,3,4
+e29,M73001,n2066,Ibagué – cr. Zarzal,40TLC; 4003; 4003A; 4002A; 40QN04; 40QN01; 4002,121.43,65.0,0.2167,6337276.0,False,0.145,4,15
+e70,M76111,M76520,Guadalajara De Buga – Palmira,2505,40.68,61.0,0.2033,5116352.0,False,0.117,5,20
+e35,M68081,n378,Barrancabermeja – cr. Puerto Berrío,6601; UF1; 4511,108.65,53.0,0.1767,1659666.0,False,0.038,6,42
+e49,M66001,n2066,Pereira – cr. Zarzal,29RSC; 29RS01; 2506; 25VLH,73.99,48.0,0.16,3823093.0,False,0.0874,7,23
+e21,M11001,n2408,Bogotá – cr. Espinal,4005; 40CNC; 40TLE; 45TLG; 4004B; 4507,136.3,47.0,0.1567,7193087.0,False,0.1645,8,10
+e63,M73001,n2408,Ibagué – cr. Espinal,40TLC; 40TLF; 4004; 40TLD; 45TL10,47.47,46.0,0.1533,6009976.0,False,0.1375,9,16
+e26,M66001,n1951,Pereira – cr. La Merced,29RSC; 29RS01; 2507; 2508,130.11,46.0,0.1533,3228970.0,False,0.0739,9,25
+e64,n2044,n1951,cr. La Pintada – cr. La Merced,2508,47.47,46.0,0.1533,3209971.0,False,0.0734,9,26
+e32,M11001,M50001,Bogotá – Villavicencio,40CN01; 4006,110.1,46.0,0.1533,2239620.0,False,0.0512,9,30
+e66,M11001,M25817,Bogotá – Tocancipá,45A04; 5501; 55CND,46.15,45.0,0.15,5745745.0,False,0.1314,13,17
+e15,M05615,n37,Rionegro – cr. Puerto Triunfo,56AN02; 6004; 6005,149.49,44.0,0.1467,7267085.0,False,0.1662,14,9
+e67,n422,n419,cr. El Guamo – cr. El Carmen De Bolívar,2515,43.8,44.0,0.1467,10776736.0,False,0.2465,14,1
+e68,M73671,n2408,Saldaña – cr. Espinal,3603; 4507,42.76,43.0,0.1433,1848557.0,False,0.0423,16,38
+e73,M68081,n2918,Barrancabermeja – cr. Sabana De Torres,6601; 4513,36.01,41.0,0.1367,1934780.0,False,0.0443,17,35
+e56,M05615,n1233,Rionegro – cr. Caldas,56AN02; 5601; 2509,56.02,39.0,0.13,1465113.0,False,0.0335,18,43
+e61,n1891,n90,cr. Ciénaga De Oro – cr. Planeta Rica,2514; 2513,51.54,39.0,0.13,8258071.0,False,0.1889,18,6
+e28,n419,n1891,cr. El Carmen De Bolívar – cr. Ciénaga De Oro,2514; 25SCA; 2515,127.65,39.0,0.13,8258071.0,False,0.1889,18,6
+e04,M05308,n90,Girardota – cr. Planeta Rica,2510; 2511; 25ANH; 2512; 2513; 25CRA,322.64,39.0,0.13,8258071.0,False,0.1889,18,6
+e59,n1233,n2044,cr. Caldas – cr. La Pintada,2509; 2508,53.04,39.0,0.13,1465113.0,False,0.0335,18,43
+e42,n378,n37,cr. Puerto Berrío – cr. Puerto Triunfo,4510; 4511,89.74,37.0,0.1233,1082974.0,False,0.0248,23,48
+e16,M11001,n2989,Bogotá – cr. Honda,5008,145.31,34.0,0.1133,7178457.0,False,0.1642,24,11
+e20,M73001,n2989,Ibagué – cr. Honda,4305; 5007; 5008,136.8,31.0,0.1033,1145950.0,False,0.0262,25,47
+e47,M68001,n2918,Bucaramanga – cr. Sabana De Torres,45AST08; 6602,80.07,29.0,0.0967,1343501.0,False,0.0307,26,45
+e08,n568,n3,cr. Bosconia – cr. Aguachica,4514; 45CSI; 4515; 4516,207.7,27.0,0.09,4577292.0,False,0.1047,27,21
+e23,M15491,n1586,Nobsa – cr. Chocontá,6210; 5502; 55BYA; 5501,132.42,24.0,0.08,2026916.0,False,0.0464,28,33
+e10,M50001,M50568,Villavicencio – Puerto Gaitán,4008; 4007,190.28,24.0,0.08,978948.0,True,0.0224,28,51
+e60,M76109,n2882,Buenaventura – cr. Dagua,40VLA; 4001,52.77,24.0,0.08,9447090.0,True,0.2161,28,3
+e76,M25817,n1586,Tocancipá – cr. Chocontá,5501,30.4,24.0,0.08,2026916.0,False,0.0464,28,33
+e41,M05756,M05615,Sonsón – Rionegro,56AN02; 5601,92.51,24.0,0.08,971311.0,True,0.0222,28,52
+e77,M08001,n889,Barranquilla – cr. Palmar De Varela,2516,30.14,24.0,0.08,6512044.0,False,0.149,28,13
+e57,n3,n634,cr. Aguachica – cr. San Alberto,4514; 45CSE,55.72,24.0,0.08,3556131.0,False,0.0813,28,24
+e43,n889,n422,cr. Palmar De Varela – cr. El Guamo,2516; 2515,86.44,22.0,0.0733,5189920.0,False,0.1187,35,19
+e12,M47001,n568,Santa Marta – cr. Bosconia,9007; 45MG02; 4518; 45MGB; 4517,152.37,22.0,0.0733,2058628.0,False,0.0471,35,31
+e58,M76111,n2882,Guadalajara De Buga – cr. Dagua,4001,55.06,22.0,0.0733,6787907.0,False,0.1553,35,12
+e50,M19142,M76520,Caloto – Palmira,2504; 2504A; 25CCC; 25CCD; 2505,72.75,22.0,0.0733,348387.0,False,0.008,35,62
+e52,M13001,n422,Cartagena De Indias – cr. El Guamo,9005; 25BL02,65.61,22.0,0.0733,5586815.0,False,0.1278,35,18
+e27,M41001,M73671,Neiva – Saldaña,4506; 4507,127.81,21.0,0.07,746966.0,False,0.0171,40,54
+e40,M54001,n292,San José De Cúcuta – cr. Pamplona,7009; 5505B; 5505,93.14,21.0,0.07,1031877.0,False,0.0236,40,49
+e71,M76001,M76520,Santiago De Cali – Palmira,2301; 23VL01; 2505,40.63,21.0,0.07,4239369.0,False,0.097,40,22
+e25,n2989,n2408,cr. Honda – cr. Espinal,4507; 4004B; 40TL06; 4509; 4508,131.45,20.0,0.0667,212341.0,False,0.0049,43,65
+e72,M05001,M05308,Medellín – Girardota,6204; 2510,39.79,17.0,0.0567,6391540.0,False,0.1462,44,14
+e33,M68001,n921,Bucaramanga – cr. San Gil,45AST08; 45A07,109.97,15.0,0.05,2053717.0,False,0.047,45,32
+e13,n568,n419,cr. Bosconia – cr. El Carmen De Bolívar,8001; 8002; 80MGA; 8003,151.67,15.0,0.05,2853860.0,False,0.0653,45,28
+e11,M05308,n378,Girardota – cr. Puerto Berrío,6205; 6206,173.74,15.0,0.05,510447.0,False,0.0117,45,60
+e24,M68001,n292,Bucaramanga – cr. Pamplona,6603; 5505,131.98,14.0,0.0467,681591.0,False,0.0156,48,56
+e44,n634,n2918,cr. San Alberto – cr. Sabana De Torres,4513,83.16,12.0,0.04,591280.0,False,0.0135,49,59
+e46,M15491,n450,Nobsa – cr. Sativanorte,5503,81.56,12.0,0.04,607300.0,False,0.0139,49,58
+e51,M17001,n1951,Manizales – cr. La Merced,5005; 2903; 50CL02,69.91,12.0,0.04,763250.0,False,0.0175,49,53
+e37,M68001,n634,Bucaramanga – cr. San Alberto,45AST08; 45A08,100.8,12.0,0.04,2964851.0,False,0.0678,49,27
+e18,M17001,n2989,Manizales – cr. Honda,5005; 5006; 5007; 5008,139.41,12.0,0.04,293434.0,False,0.0067,49,63
+e38,M25817,n724,Tocancipá – cr. Chiquinquirá,45ACND; 45A04; 45A05,99.64,11.0,0.0367,1862948.0,False,0.0426,54,36
+e62,n354,n724,cr. Barbosa – cr. Chiquinquirá,45A06; 45A05,49.85,11.0,0.0367,1862948.0,False,0.0426,54,36
+e30,n921,n354,cr. San Gil – cr. Barbosa,45A06; 45A07,117.1,10.0,0.0333,1796703.0,False,0.0411,56,39
+e06,n292,n450,cr. Pamplona – cr. Sativanorte,5504; 5505; 55STA; 5503,222.54,7.0,0.0233,350286.0,False,0.008,57,61
+e65,n2464,n2044,cr. Concordia – cr. La Pintada,6003; 25B01,46.33,7.0,0.0233,1744858.0,False,0.0399,57,40
+e31,M05001,n2464,Medellín – cr. Concordia,6204; 25B02,114.59,7.0,0.0233,1744858.0,False,0.0399,57,40
+e36,n921,n450,cr. San Gil – cr. Sativanorte,55BY11; 6403,105.68,5.0,0.0167,257014.0,False,0.0059,60,64
+e55,M76001,M19142,Santiago De Cali – Caloto,2504,56.6,3.0,0.01,717184.0,False,0.0164,61,55
+e05,M54001,n3,San José De Cúcuta – cr. Aguachica,7009; 70NSA; 7008; 7007,246.81,3.0,0.01,1021161.0,False,0.0234,61,50
+e03,M41001,M19142,Neiva – Caloto,25CCA; 2504; 2602A; 2602; 3701; 2402; 4505; 43HL02; 43HL02-1; 45HL06,341.02,3.0,0.01,174608.0,False,0.004,61,66
+e34,M13001,n889,Cartagena De Indias – cr. Palmar De Varela,9005; 90BLC; 9006; 90AT01; 25ATA,108.88,2.0,0.0067,1322124.0,False,0.0302,64,46
+e07,M08001,M47001,Barranquilla – Santa Marta,9007; 2702,215.42,2.0,0.0067,671885.0,False,0.0154,64,57
+e53,M76001,n2882,Santiago De Cali – cr. Dagua,1901,63.34,2.0,0.0067,2659183.0,False,0.0608,64,29
+e14,n378,n354,cr. Puerto Berrío – cr. Barbosa,6208; 6207; 4511,150.87,1.0,0.0033,66245.0,False,0.0015,67,67
+e48,n2638,n90,cr. Cereté – cr. Planeta Rica,2103; 2310,74.22,0.0,0.0,0.0,False,0.0,68,68
+e01,M05001,n2638,Medellín – cr. Cereté,6204; 2510; 2511; 25ANH; 2512; 2513; 25CRA; 2310; 2103,433.76,0.0,0.0,0.0,False,0.0,68,68
+e17,M15491,n283,Nobsa – cr. Aguazul,6210; 62BY05; 6211,139.83,0.0,0.0,0.0,False,0.0,68,68
+e75,n2638,n1891,cr. Cereté – cr. Ciénaga De Oro,7402; 74CRA,32.99,0.0,0.0,0.0,False,0.0,68,68
+e19,M50001,n135,Villavicencio – cr. Sabanalarga,6510; 65MTF; 6511,138.08,0.0,0.0,0.0,False,0.0,68,68
+e02,n292,n283,cr. Pamplona – cr. Aguazul,62BY05; 6211; 6210; 5503; 5504; 55STA; 5505,421.94,0.0,0.0,0.0,False,0.0,68,68
+e69,n1233,n2464,cr. Caldas – cr. Concordia,6003,42.71,0.0,0.0,0.0,False,0.0,68,68
+e09,n37,n724,cr. Puerto Triunfo – cr. Chiquinquirá,4510; 6007; 6006; 45ABYB,192.85,0.0,0.0,0.0,False,0.0,68,68
+e39,n283,n135,cr. Aguazul – cr. Sabanalarga,6512; 6511,96.09,0.0,0.0,0.0,False,0.0,68,68
+e22,n1586,n135,cr. Chocontá – cr. Sabanalarga,55CN03; 5608; 5607,135.74,0.0,0.0,0.0,False,0.0,68,68
