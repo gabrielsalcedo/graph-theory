@@ -29,8 +29,10 @@ def leer_red(reportar=True):
         red[col] = red[col].astype(object).where(red[col].notna(), None)
     fuera = red["sector"].fillna("").str.contains(c.EXCLUIR_SECTOR, case=False)
     if reportar:
-        anotar(f"[A] {len(red)} tramos de INVIAS ({len(c.PARTES_RED_VIAL)} partes unidas); "
-               f"se quitan {fuera.sum()} '{c.EXCLUIR_SECTOR}'.")
+        km = red.to_crs(c.CRS_METRICO).length.sum() / 1000
+        anotar(f"[A] {len(red)} tramos de INVIAS, {km:,.0f} km ({len(c.PARTES_RED_VIAL)} partes "
+               f"unidas); se quitan {fuera.sum()} '{c.EXCLUIR_SECTOR}' "
+               f"({red.loc[fuera].to_crs(c.CRS_METRICO).length.sum() / 1000:,.0f} km).")
     return red.loc[~fuera, ["id_tramo", "codigo_via", "sector", "ruta", "geometry"]]
 
 

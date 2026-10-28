@@ -1,4 +1,4 @@
-[A] 652 tramos de INVIAS (11 partes unidas); se quitan 12 'fuera de servicio'.
+[A] 652 tramos de INVIAS, 20,011 km (11 partes unidas); se quitan 12 'fuera de servicio' (9 km).
 [A] Las 50 ciudades con más carga suman 74.5 % de las toneladas.
 [B] 6020 líneas; componentes conexas antes de limpiar: 464.
 [B] 1341 líneas duplicadas o de segunda calzada eliminadas.
