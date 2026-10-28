@@ -1,107 +1,58 @@
-"""Carga y validación de los datos: leer, renombrar columnas, reproyectar y reportar.
+"""
+Lectura de los datos de entrada.
 
-Lee tres archivos (rutas en config.py):
-  red vial       data/raw/invias.geojson (o invias.zip)
-  municipios     data/final/nodos_demanda.csv   (salida de 01_limpieza_rndc.R)
-  matriz O-D     data/final/matriz_od.csv       (salida de 01_limpieza_rndc.R)
+  leer_red()          red vial de INVIAS (une las 11 partes de data/raw/invias/)
+  leer_municipios()   un punto por municipio con sus toneladas (salida de R)
+  leer_od()           matriz origen-destino entre municipios (salida de R)
 """
 
-import warnings
-
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 
-import config
-
-warnings.filterwarnings("ignore", "GeoSeries.notna", UserWarning)
-
-# columnas que usan limpieza.py y grafo.py (nombres internos)
-COLUMNAS_INTERNAS_RED = ["id_tramo", "codigo_via", "cod_tramo", "nombre_tramo", "ruta",
-                         "administrador", "superficie", "calzada", "concesion"]
+import config as c
+from vial.reporte import anotar
 
 
-def cargar_red(reporte: list) -> gpd.GeoDataFrame:
-    ruta = config.ARCHIVO_RED
-    red = gpd.read_file(ruta)
-    if red.crs is None:
-        red = red.set_crs(config.CRS_ENTRADA_RED)
-        reporte.append(f"[red] El archivo no trae CRS; se asume {config.CRS_ENTRADA_RED}.")
-    faltan = [c for c in config.COLUMNAS_RED if c not in red.columns]
+def leer_red(reportar=True):
+    """Une las partes de la red de INVIAS en el mismo orden, así que el resultado es el
+    archivo original. Devuelve un GeoDataFrame (id_tramo, codigo_via, sector, ruta,
+    geometry) sin los tramos fuera de servicio."""
+    faltan = [p.name for p in c.PARTES_RED_VIAL if not p.exists()]
     if faltan:
-        raise KeyError(f"Columnas de COLUMNAS_RED que no están en {ruta.name}: {faltan}. "
-                       f"Columnas disponibles: {list(red.columns)}")
-    red = red[list(config.COLUMNAS_RED) + ["geometry"]].rename(columns=config.COLUMNAS_RED)
-    reporte.append(f"[red] {len(red)} filas leídas de {ruta.name} (CRS {red.crs.to_string()}).")
-
-    # columnas internas que el archivo no trae (INVIAS no trae 'concesion')
-    for col in COLUMNAS_INTERNAS_RED:
-        if col not in red.columns:
-            red[col] = None
-            reporte.append(f"[red] El archivo no trae '{col}'; se deja vacía.")
-    # todo como texto limpio: " " (blanco) cuenta como dato faltante
-    for col in COLUMNAS_INTERNAS_RED:
-        if col != "id_tramo":
-            red[col] = red[col].astype("string").str.strip().replace("", pd.NA)
-            red[col] = red[col].astype(object).where(red[col].notna(), None)
-
-    # tramos fuera de servicio
-    if config.EXCLUIR_TRAMOS_CON_NOMBRE:
-        fuera = red["nombre_tramo"].fillna("").str.contains(
-            config.EXCLUIR_TRAMOS_CON_NOMBRE, case=False)
-        if fuera.any():
-            km = red[fuera].to_crs(config.CRS_METRICO).length.sum() / 1000
-            reporte.append(f"[red] {fuera.sum()} tramos descartados por estar "
-                           f"'{config.EXCLUIR_TRAMOS_CON_NOMBRE}' ({km:,.0f} km).")
-            red = red[~fuera].reset_index(drop=True)
-    for col in config.COLUMNAS_RED.values():
-        n = red[col].isna().sum()
-        if n:
-            reporte.append(f"[red] {n} nulos en '{col}'.")
-    return red
+        raise FileNotFoundError(f"Faltan partes de la red en {c.CARPETA_PARTES_RED}: "
+                                f"{', '.join(faltan)}. Ver data/raw/README.md.")
+    red = pd.concat([gpd.read_file(p) for p in c.PARTES_RED_VIAL], ignore_index=True)
+    # 'nombretramo' viene vacío: el nombre del tramo está en 'sector'
+    red = red.rename(columns={"objectid": "id_tramo", "codigotramo": "codigo_via"})
+    for col in ("codigo_via", "sector", "ruta"):                 # " " cuenta como vacío
+        red[col] = red[col].astype("string").str.strip().replace("", pd.NA)
+        red[col] = red[col].astype(object).where(red[col].notna(), None)
+    fuera = red["sector"].fillna("").str.contains(c.EXCLUIR_SECTOR, case=False)
+    if reportar:
+        km = red.to_crs(c.CRS_METRICO).length.sum() / 1000
+        anotar(f"[A] {len(red)} tramos de INVIAS, {km:,.0f} km ({len(c.PARTES_RED_VIAL)} partes "
+               f"unidas); se quitan {fuera.sum()} '{c.EXCLUIR_SECTOR}' "
+               f"({red.loc[fuera].to_crs(c.CRS_METRICO).length.sum() / 1000:,.0f} km).")
+    return red.loc[~fuera, ["id_tramo", "codigo_via", "sector", "ruta", "geometry"]]
 
 
-def _leer_municipios() -> pd.DataFrame:
-    d = pd.read_csv(config.ARCHIVO_MUNICIPIOS, dtype=str)
-    d = d[list(config.COLUMNAS_MUNICIPIOS)].rename(columns=config.COLUMNAS_MUNICIPIOS)
-    for c in ("lon", "lat", "ton_total"):
-        d[c] = pd.to_numeric(d[c], errors="coerce")
-    d["cod_mpio"] = d["cod_mpio"].str.zfill(5)
-    return d
+def leer_municipios():
+    """Municipios con coordenadas, en metros (CRS_METRICO). Columnas: cod_mpio, nombre,
+    departamento, ton_total (toneladas que salen y llegan), geometry."""
+    m = pd.read_csv(c.MUNICIPIOS, dtype={"COD": str})
+    m = m.rename(columns={"COD": "cod_mpio", "NOMBRE_MPIO": "nombre",
+                          "DEPARTAMENTO": "departamento", "TON_TOTAL": "ton_total"})
+    m["cod_mpio"] = m["cod_mpio"].str.zfill(5)
+    m = m.dropna(subset=["LON", "LAT"])
+    m = gpd.GeoDataFrame(m, geometry=gpd.points_from_xy(m["LON"], m["LAT"]),
+                         crs=c.CRS_GEOGRAFICO)
+    return m.to_crs(c.CRS_METRICO)
 
 
-def cargar_municipios(reporte: list) -> gpd.GeoDataFrame:
-    """Las N_CIUDADES con más carga (alcance del proyecto), en coordenadas métricas."""
-    d = _leer_municipios()
-    malos = d["lon"].isna() | d["lat"].isna()
-    if malos.any():
-        reporte.append(f"[municipios] {malos.sum()} sin coordenadas válidas (se omiten).")
-    d = d[~malos]
-    total = d["ton_total"].sum()
-    d = d.nlargest(config.N_CIUDADES, "ton_total")
-    reporte.append(f"[municipios] Se conservan las {config.N_CIUDADES} ciudades con más carga: "
-                   f"{100 * d['ton_total'].sum() / total:.1f} % de las toneladas (salen + llegan).")
-    gdf = gpd.GeoDataFrame(d, geometry=gpd.points_from_xy(d["lon"], d["lat"]), crs="EPSG:4326")
-    return gdf.to_crs(config.CRS_METRICO)
-
-
-def cargar_referencia_municipios() -> pd.DataFrame:
-    """Todos los municipios con coordenadas; solo para nombrar los cruces del grafo de
-    análisis por el municipio más cercano."""
-    d = _leer_municipios().dropna(subset=["lon", "lat"])
-    g = gpd.GeoDataFrame(d, geometry=gpd.points_from_xy(d["lon"], d["lat"]), crs="EPSG:4326")
-    g = g.to_crs(config.CRS_METRICO)
-    return pd.DataFrame({"nombre": g["nombre"], "x": g.geometry.x, "y": g.geometry.y})
-
-
-def cargar_od(reporte: list) -> pd.DataFrame:
-    """Matriz O-D limpia en R (sin autolazos, códigos de 5 dígitos que existen en DIVIPOLA,
-    galones convertidos a kg). Aquí solo se renombra."""
-    ruta = config.ARCHIVO_OD
-    od = pd.read_csv(ruta, usecols=list(config.COLUMNAS_OD),
-                     dtype={"ORIGEN": str, "DESTINO": str})
-    od = od.rename(columns=config.COLUMNAS_OD)
-    for c in ("cod_origen", "cod_destino"):
-        od[c] = od[c].str.zfill(5)
-    od = od[od["cod_origen"] != od["cod_destino"]]
-    reporte.append(f"[od] {ruta.name}: {len(od)} pares O-D, {od['toneladas'].sum():,.0f} t.")
-    return od
+def leer_od():
+    """Matriz O-D entre municipios (o, d, toneladas, viajes), sin autolazos."""
+    od = pd.read_csv(c.MATRIZ_OD, dtype={"ORIGEN": str, "DESTINO": str})
+    od = od.rename(columns={"ORIGEN": "o", "DESTINO": "d", "TONELADAS": "toneladas",
+                            "VIAJES": "viajes"})
+    od["o"], od["d"] = od["o"].str.zfill(5), od["d"].str.zfill(5)
+    return od[od["o"] != od["d"]]

@@ -1,0 +1,78 @@
+rango,id_arista,nombre,km,es_puente,carga_t,sobrecosto_cop_anual,sin_ruta_t,cop_por_t_desviada,sobrecosto_14_dias,grupo
+1,e60,Buenaventura – cr. Dagua,52.8,True,9447090.4,0.0,9447090.4,,0.0,Crítico
+2,e10,Villavicencio – Puerto Gaitán,190.3,True,978948.0,0.0,978948.0,,0.0,Vulnerable local
+3,e41,Sonsón – Rionegro,92.5,True,971311.2,0.0,971311.2,,0.0,Vulnerable local
+4,e54,Guadalajara De Buga – cr. Zarzal,57.2,False,9500976.0,908579033346.9,0.0,95630.1,34849606758.5,Crítico
+5,e67,cr. El Guamo – cr. El Carmen De Bolívar,43.8,False,10776735.5,687271907412.3,0.0,63773.7,26361114256.9,Crítico
+6,e08,cr. Bosconia – cr. Aguachica,207.7,False,4577292.1,472964744396.4,0.0,103328.5,18141113483.7,Crítico
+7,e29,Ibagué – cr. Zarzal,121.4,False,6337276.1,383857640578.0,0.0,60571.4,14723306761.9,Crítico
+8,e66,Bogotá – Tocancipá,46.1,False,5745744.7,327249187466.2,0.0,56955.1,12552023628.8,Crítico
+9,e77,Barranquilla – cr. Palmar De Varela,30.1,False,6512044.2,326451604002.4,0.0,50130.4,12521431386.4,Crítico
+10,e28,cr. El Carmen De Bolívar – cr. Ciénaga De Oro,127.7,False,8258071.3,282307568754.4,0.0,34185.7,10828235513.9,Crítico
+11,e68,Saldaña – cr. Espinal,42.8,False,1848556.6,271912826350.9,0.0,147094.7,10429533065.5,Vulnerable local
+12,e57,cr. Aguachica – cr. San Alberto,55.7,False,3556131.0,230984665776.4,0.0,64953.9,8859685810.6,Crítico
+13,e21,Bogotá – cr. Espinal,136.3,False,7193086.5,190432976518.3,0.0,26474.4,7304278551.4,Crítico
+14,e49,Pereira – cr. Zarzal,74.0,False,3823092.9,188548508108.9,0.0,49318.3,7231997571.3,Crítico
+15,e52,Cartagena De Indias – cr. El Guamo,65.6,False,5586815.4,180164541038.7,0.0,32248.2,6910420752.2,Crítico
+16,e72,Medellín – Girardota,39.8,False,6391539.8,174760607749.7,0.0,27342.5,6703146598.6,Crítico
+17,e12,Santa Marta – cr. Bosconia,152.4,False,2058627.9,172298966534.8,0.0,83696.0,6608727483.5,Crítico
+18,e63,Ibagué – cr. Espinal,47.5,False,6009976.4,144476158991.0,0.0,24039.4,5541551303.8,Importante con respaldo
+19,e58,Guadalajara De Buga – cr. Dagua,55.1,False,6787907.5,137796648061.0,0.0,20300.3,5285350884.5,Importante con respaldo
+20,e74,Girardota – Rionegro,35.3,False,9005058.6,122739524917.1,0.0,13630.1,4707817394.1,Importante con respaldo
+21,e26,Pereira – cr. La Merced,130.1,False,3228970.1,122458120373.1,0.0,37924.8,4697023795.1,Crítico
+22,e64,cr. La Pintada – cr. La Merced,47.5,False,3209970.8,122373733127.3,0.0,38123.0,4693787024.1,Crítico
+23,e45,cr. Puerto Triunfo – cr. Honda,82.7,False,8350059.1,116533083471.9,0.0,13956.0,4469762105.8,Importante con respaldo
+24,e76,Tocancipá – cr. Chocontá,30.4,False,2026916.1,111155027766.9,0.0,54839.5,4263480517.1,Vulnerable local
+25,e32,Bogotá – Villavicencio,110.1,False,2239619.6,103520866376.7,0.0,46222.5,3970663367.9,Crítico
+26,e04,Girardota – cr. Planeta Rica,322.6,False,8258071.3,98244284271.0,0.0,11896.8,3768273917.2,Importante con respaldo
+27,e43,cr. Palmar De Varela – cr. El Guamo,86.4,False,5189920.1,96657454510.3,0.0,18624.1,3707409214.1,Importante con respaldo
+28,e23,Nobsa – cr. Chocontá,132.4,False,2026916.1,95733911582.1,0.0,47231.3,3671985649.7,Vulnerable local
+29,e73,Barrancabermeja – cr. Sabana De Torres,36.0,False,1934780.4,93803892734.4,0.0,48483.0,3597957529.5,Vulnerable local
+30,e16,Bogotá – cr. Honda,145.3,False,7178457.2,90079167196.1,0.0,12548.5,3455091344.5,Importante con respaldo
+31,e15,Rionegro – cr. Puerto Triunfo,149.5,False,7267084.7,86877960866.2,0.0,11955.0,3332305348.3,Importante con respaldo
+32,e13,cr. Bosconia – cr. El Carmen De Bolívar,151.7,False,2853859.6,79230448220.0,0.0,27762.6,3038976096.1,Crítico
+33,e61,cr. Ciénaga De Oro – cr. Planeta Rica,51.5,False,8258071.3,76771988734.5,0.0,9296.6,2944679020.0,Importante con respaldo
+34,e27,Neiva – Saldaña,127.8,False,746965.5,64401536093.3,0.0,86217.6,2470195904.9,Vulnerable local
+35,e35,Barrancabermeja – cr. Puerto Berrío,108.6,False,1659666.2,55793232685.7,0.0,33617.1,2140014404.4,Vulnerable local
+36,e70,Guadalajara De Buga – Palmira,40.7,False,5116351.9,50622021840.6,0.0,9894.2,1941666591.1,Importante con respaldo
+37,e53,Santiago De Cali – cr. Dagua,63.3,False,2659183.0,45958094840.8,0.0,17282.8,1762776240.5,Importante con respaldo
+38,e40,San José De Cúcuta – cr. Pamplona,93.1,False,1031876.8,45680232340.4,0.0,44269.1,1752118500.7,Vulnerable local
+39,e71,Santiago De Cali – Palmira,40.6,False,4239369.4,41384229215.8,0.0,9761.9,1587340298.7,Importante con respaldo
+40,e33,Bucaramanga – cr. San Gil,110.0,False,2053716.9,37755831673.1,0.0,18384.1,1448168886.1,Importante con respaldo
+41,e37,Bucaramanga – cr. San Alberto,100.8,False,2964851.4,37522651267.5,0.0,12655.8,1439224980.1,Importante con respaldo
+42,e05,San José De Cúcuta – cr. Aguachica,246.8,False,1021161.2,34230732461.9,0.0,33521.4,1312959601.3,Vulnerable local
+43,e07,Barranquilla – Santa Marta,215.4,False,671884.7,32985926761.2,0.0,49094.6,1265213629.2,Vulnerable local
+44,e51,Manizales – cr. La Merced,69.9,False,763249.7,28974331351.6,0.0,37961.8,1111344216.2,Vulnerable local
+45,e47,Bucaramanga – cr. Sabana De Torres,80.1,False,1343500.9,28778169411.4,0.0,21420.3,1103820196.6,Secundario
+46,e38,Tocancipá – cr. Chiquinquirá,99.6,False,1862948.4,25878959875.1,0.0,13891.4,992617639.0,Secundario
+47,e62,cr. Barbosa – cr. Chiquinquirá,49.9,False,1862948.4,25878959875.1,0.0,13891.4,992617639.0,Secundario
+48,e24,Bucaramanga – cr. Pamplona,132.0,False,681591.0,24026555026.6,0.0,35250.7,921566494.2,Vulnerable local
+49,e56,Rionegro – cr. Caldas,56.0,False,1465113.2,23285589909.3,0.0,15893.4,893145914.3,Secundario
+50,e30,cr. San Gil – cr. Barbosa,117.1,False,1796703.1,22569999071.6,0.0,12561.9,865698594.5,Secundario
+51,e46,Nobsa – cr. Sativanorte,81.6,False,607299.6,22231662549.2,0.0,36607.4,852721303.3,Vulnerable local
+52,e42,cr. Puerto Berrío – cr. Puerto Triunfo,89.7,False,1082974.4,19112669174.5,0.0,17648.3,733088680.7,Secundario
+53,e18,Manizales – cr. Honda,139.4,False,293434.5,18163598163.9,0.0,61900.0,696685957.0,Vulnerable local
+54,e44,cr. San Alberto – cr. Sabana De Torres,83.2,False,591279.6,14362372292.2,0.0,24290.3,550885512.6,Vulnerable local
+55,e34,Cartagena De Indias – cr. Palmar De Varela,108.9,False,1322124.1,14188214157.6,0.0,10731.4,544205474.5,Secundario
+56,e59,cr. Caldas – cr. La Pintada,53.0,False,1465113.2,12913715727.5,0.0,8814.1,495320603.2,Secundario
+57,e20,Ibagué – cr. Honda,136.8,False,1145949.7,11781593706.7,0.0,10281.1,451896744.9,Secundario
+58,e11,Girardota – cr. Puerto Berrío,173.7,False,510446.5,10149717350.6,0.0,19884.0,389304227.1,Secundario
+59,e31,Medellín – cr. Concordia,114.6,False,1744857.6,10061638617.1,0.0,5766.5,385925864.8,Secundario
+60,e65,cr. Concordia – cr. La Pintada,46.3,False,1744857.6,10061638617.1,0.0,5766.5,385925864.8,Secundario
+61,e55,Santiago De Cali – Caloto,56.6,False,717184.4,9344054222.6,0.0,13028.8,358402079.8,Secundario
+62,e36,cr. San Gil – cr. Sativanorte,105.7,False,257013.8,8872874243.2,0.0,34523.0,340329423.0,Vulnerable local
+63,e06,cr. Pamplona – cr. Sativanorte,222.5,False,350285.8,5210608799.6,0.0,14875.3,199858967.7,Secundario
+64,e03,Neiva – Caloto,341.0,False,174607.9,3603619477.4,0.0,20638.3,138221021.1,Secundario
+65,e25,cr. Honda – cr. Espinal,131.5,False,212341.2,2750873224.6,0.0,12955.0,105512945.6,Secundario
+66,e50,Caloto – Palmira,72.8,False,348387.2,2119382836.5,0.0,6083.4,81291396.5,Secundario
+67,e14,cr. Puerto Berrío – cr. Barbosa,150.9,False,66245.3,1046518938.3,0.0,15797.6,40140452.4,Secundario
+68,e01,Medellín – cr. Cereté,433.8,False,0.0,0.0,0.0,,0.0,Sin carga
+69,e17,Nobsa – cr. Aguazul,139.8,False,0.0,0.0,0.0,,0.0,Sin carga
+70,e19,Villavicencio – cr. Sabanalarga,138.1,False,0.0,0.0,0.0,,0.0,Sin carga
+71,e48,cr. Cereté – cr. Planeta Rica,74.2,False,0.0,0.0,0.0,,0.0,Sin carga
+72,e75,cr. Cereté – cr. Ciénaga De Oro,33.0,False,0.0,0.0,0.0,,0.0,Sin carga
+73,e02,cr. Pamplona – cr. Aguazul,421.9,False,0.0,0.0,0.0,,0.0,Sin carga
+74,e69,cr. Caldas – cr. Concordia,42.7,False,0.0,0.0,0.0,,0.0,Sin carga
+75,e09,cr. Puerto Triunfo – cr. Chiquinquirá,192.8,False,0.0,0.0,0.0,,0.0,Sin carga
+76,e39,cr. Aguazul – cr. Sabanalarga,96.1,False,0.0,0.0,0.0,,0.0,Sin carga
+77,e22,cr. Chocontá – cr. Sabanalarga,135.7,False,0.0,0.0,0.0,,0.0,Sin carga

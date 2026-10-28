@@ -1,0 +1,222 @@
+{
+ "descripcion": "Grafo de juguete construido a mano con respuestas conocidas. Lo usa scripts/06_pruebas.py. Componentes {A..J} y {K,L,M}; puentes D-G, I-J, K-L, L-M; pesos en km.",
+ "nodos": {
+  "A": [
+   0,
+   0
+  ],
+  "B": [
+   10,
+   0
+  ],
+  "C": [
+   20,
+   0
+  ],
+  "D": [
+   30,
+   0
+  ],
+  "E": [
+   15,
+   5
+  ],
+  "F": [
+   15,
+   -12
+  ],
+  "G": [
+   45,
+   0
+  ],
+  "H": [
+   52,
+   5
+  ],
+  "I": [
+   52,
+   -5
+  ],
+  "J": [
+   70,
+   -5
+  ],
+  "K": [
+   0,
+   20
+  ],
+  "L": [
+   8,
+   20
+  ],
+  "M": [
+   16,
+   20
+  ]
+ },
+ "aristas": [
+  {
+   "id": "e01",
+   "u": "A",
+   "v": "B",
+   "km": 10,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e02",
+   "u": "B",
+   "v": "C",
+   "km": 10,
+   "superficie": "P",
+   "calzada": "2",
+   "concesion": "CONCESION JUGUETE"
+  },
+  {
+   "id": "e03",
+   "u": "B",
+   "v": "E",
+   "km": 6,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e04",
+   "u": "E",
+   "v": "C",
+   "km": 6,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e05",
+   "u": "C",
+   "v": "D",
+   "km": 10,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e06",
+   "u": "A",
+   "v": "F",
+   "km": 40,
+   "superficie": "A",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e07",
+   "u": "F",
+   "v": "D",
+   "km": 40,
+   "superficie": "A",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e08",
+   "u": "D",
+   "v": "G",
+   "km": 15,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e09",
+   "u": "G",
+   "v": "H",
+   "km": 5,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e10",
+   "u": "G",
+   "v": "I",
+   "km": 5,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e11",
+   "u": "H",
+   "v": "I",
+   "km": 5,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e12",
+   "u": "I",
+   "v": "J",
+   "km": 20,
+   "superficie": "A",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e13",
+   "u": "K",
+   "v": "L",
+   "km": 8,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  },
+  {
+   "id": "e14",
+   "u": "L",
+   "v": "M",
+   "km": 8,
+   "superficie": "P",
+   "calzada": "1",
+   "concesion": null
+  }
+ ],
+ "respuestas": {
+  "orden": 13,
+  "tamano": 14,
+  "n_componentes": 2,
+  "puentes": [
+   [
+    "D",
+    "G"
+   ],
+   [
+    "I",
+    "J"
+   ],
+   [
+    "K",
+    "L"
+   ],
+   [
+    "L",
+    "M"
+   ]
+  ],
+  "vertices_de_corte": [
+   "D",
+   "G",
+   "I",
+   "L"
+  ],
+  "costo_base_por_par": {
+   "B->C": 10,
+   "C->D": 10,
+   "A->D": 30,
+   "A->H": 50,
+   "H->J": 25,
+   "K->M": 16
+  }
+ }
+}

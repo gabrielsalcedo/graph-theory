@@ -1,0 +1,17 @@
+1. PROPIEDADES DEL GRAFO
+   Vértices: 53   Aristas: 77
+   Ciudades: 25   Cruces: 28
+   Grado medio: 2.91   Grado mínimo: 1   Grado máximo: 5
+   Conexo: True   Planar: True
+   Diámetro (en aristas): 14
+   Conectividad de vértices κ(G): 1   de aristas λ(G): 1
+   Puentes (3): Buenaventura – Dagua; Villavicencio – Puerto Gaitán; Sonsón – Rionegro
+   Vértices de corte (3): Dagua; Rionegro; Villavicencio
+
+2. GRAFO FRENTE AL RNDC (300 pares O-D con más toneladas)
+   Razón km grafo / km reportados: ponderada por toneladas 1.041   mediana 1.028   p10-p90 0.89-1.36
+   BUENAVENTURA VALLE DEL CAUCA -> BOGOTA BOGOTA D. C.: 470 km (RNDC 526 km)
+   BUENAVENTURA VALLE DEL CAUCA -> GUADALAJARA DE BUGA VALLE DEL CAUCA: 108 km (RNDC 118 km)
+   CARTAGENA BOLIVAR -> BOGOTA BOGOTA D. C.: 1,024 km (RNDC 978 km)
+   BUENAVENTURA VALLE DEL CAUCA -> CALI VALLE DEL CAUCA: 116 km (RNDC 164 km)
+   TOCANCIPA CUNDINAMARCA -> BOGOTA BOGOTA D. C.: 46 km (RNDC 71 km)

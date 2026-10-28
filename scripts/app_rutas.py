@@ -1,247 +1,143 @@
 """
-Ventana para consultar la RUTA DE MENOR COSTO (Dijkstra) entre dos municipios.
+HERRAMIENTA — Ruta de menor costo y ruta alterna ante cierres (para la demostración).
 
-Ejecutar en Spyder con F5. Se abre una ventana aparte; el script termina al cerrarla.
-- Escriba parte del nombre en "Origen" o "Destino": la lista se filtra mientras escribe
-  (no distingue tildes ni mayúsculas). Elija una opción de la lista desplegable.
-- "Calcular ruta" ejecuta Dijkstra (vial/rutas.py) con el costo de vial/costo.py.
-- El mapa resalta la ruta; con la barra inferior se puede acercar y desplazar.
+El usuario elige un origen, un destino y las vías que quiere cerrar. La ventana muestra:
+  - la ruta normal (gris oscuro) y la ruta alterna con las vías cerradas (naranja);
+  - los km extra, el sobrecosto por tonelada y, con las toneladas del RNDC de esa
+    pareja, el sobrecosto al año y el de un cierre de N días;
+  - si no queda ruta, lo dice (la vía cerrada era un puente para esa pareja).
 
-Usa el grafo de análisis del paso 2 (02_construir_grafo.py). OPCIONAL: es la herramienta
-interactiva del proyecto; no produce ningún resultado del repositorio.
+Uso: `python app_rutas.py` desde scripts/. Necesita haber corrido el paso 03.
+Necesita una pantalla: en Google Colab no abre (use un computador con Python).
 """
 
 import tkinter as tk
-import unicodedata
-from tkinter import messagebox, ttk
+from tkinter import ttk
 
-import networkx as nx
 import numpy as np
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.collections import LineCollection
 from matplotlib.figure import Figure
 
-from vial.archivos import cargar_grafo
-from vial import grafo as modulo_grafo
-from vial import rutas
+import config as c
+from vial.archivos import cargar_grafo, cargar_od
+from vial.ciudades import lista_ciudades, nombre_corto
+from vial.rutas import ruta
 
-GRIS_RED = "#c9c8c2"
-NARANJA = "#eb6834"
-AZUL = "#2a78d6"
-TINTA = "#2b2b29"
-TINTA_SUAVE = "#6b6a65"
+GRIS, OSCURO, NARANJA, ROJO = "#d9d8d3", "#2b2b29", "#eb6834", "#e34948"
 
 
-def normalizar(texto: str) -> str:
-    return "".join(c for c in unicodedata.normalize("NFD", texto)
-                   if unicodedata.category(c) != "Mn").lower()
-
-
-class SelectorFiltrable(ttk.Combobox):
-    """Combobox que filtra sus opciones con lo que el usuario escribe."""
-
-    def __init__(self, padre, opciones, **kw):
-        super().__init__(padre, values=opciones, **kw)
-        self._todas = opciones
-        self.bind("<KeyRelease>", self._filtrar)
-
-    def _filtrar(self, evento):
-        if evento.keysym in ("Up", "Down", "Return", "Escape", "Tab"):
-            return
-        texto = normalizar(self.get())
-        self["values"] = [o for o in self._todas if texto in normalizar(o)] or self._todas
-
-
-class AppRutas(tk.Tk):
-    def __init__(self, G):
+class App(tk.Tk):
+    def __init__(self):
         super().__init__()
-        self.G = G
-        self.title("Ruta de menor costo — red vial de carga")
-        self.geometry("1280x800")
-        self.minsize(980, 640)
+        self.title("Red vial de carga — rutas y cierres")
+        self.geometry("1250x780")
+        self.G = cargar_grafo()
+        od = cargar_od()
+        self.toneladas = {(f.o, f.d): f.toneladas for f in od.itertuples()}
+        self.nodo = {nombre_corto(self.G, n): n for n in sorted(lista_ciudades(self.G),
+                                                                 key=lambda n: nombre_corto(self.G, n))}
+        self.arista = {f"{d['id_arista']}  {d['nombre']}": (u, v)
+                       for u, v, d in sorted(self.G.edges(data=True), key=lambda e: e[2]["nombre"])}
 
-        # componente conexa de cada nodo (para explicar cuando no hay ruta)
-        self.componente = {}
-        for i, comp in enumerate(sorted(nx.connected_components(G), key=len, reverse=True)):
-            for n in comp:
-                self.componente[n] = i
-
-        tabla = modulo_grafo.municipios_en_grafo(G)
-        self.etiqueta_a_nodo = {
-            f"{f.nombre} — {f.departamento} ({f.cod_mpio})": f.nodo for f in tabla.itertuples()}
-        self.opciones = list(self.etiqueta_a_nodo)
-
-        self._construir_panel()
-        self._construir_mapa()
-        self._dibujar_red()
-
-    # ------------------------------------------------------------------ interfaz
-    def _construir_panel(self):
-        panel = ttk.Frame(self, padding=12)
+        panel = ttk.Frame(self, padding=10)
         panel.pack(side="left", fill="y")
-
-        ttk.Label(panel, text="Ruta de menor costo", font=("TkDefaultFont", 13, "bold")).pack(anchor="w")
-        ttk.Label(panel, text=f"{len(self.opciones)} municipios conectados a la red",
-                  foreground=TINTA_SUAVE).pack(anchor="w", pady=(0, 10))
-
         ttk.Label(panel, text="Origen").pack(anchor="w")
-        self.origen = SelectorFiltrable(panel, self.opciones, width=46)
-        self.origen.pack(anchor="w", pady=(0, 8))
+        self.origen = ttk.Combobox(panel, values=list(self.nodo), state="readonly", width=40)
+        self.origen.pack(anchor="w", pady=(0, 6))
         ttk.Label(panel, text="Destino").pack(anchor="w")
-        self.destino = SelectorFiltrable(panel, self.opciones, width=46)
-        self.destino.pack(anchor="w", pady=(0, 8))
+        self.destino = ttk.Combobox(panel, values=list(self.nodo), state="readonly", width=40)
+        self.destino.pack(anchor="w", pady=(0, 6))
+        ttk.Label(panel, text="Vías cerradas (Ctrl + clic para varias)").pack(anchor="w")
+        self.cerradas = tk.Listbox(panel, selectmode="extended", height=18, width=46,
+                                   exportselection=False)
+        for etiqueta in self.arista:
+            self.cerradas.insert("end", etiqueta)
+        self.cerradas.pack(anchor="w")
+        fila = ttk.Frame(panel)
+        fila.pack(anchor="w", pady=6)
+        ttk.Label(fila, text="Días de cierre:").pack(side="left")
+        self.dias = tk.IntVar(value=c.DIAS_CIERRE)
+        ttk.Spinbox(fila, from_=1, to=365, textvariable=self.dias, width=5).pack(side="left", padx=4)
+        ttk.Button(fila, text="Calcular", command=self.calcular).pack(side="left", padx=8)
+        ttk.Button(fila, text="Quitar cierres", command=self.quitar_cierres).pack(side="left")
+        self.texto = ttk.Label(panel, text="Elija origen y destino.", justify="left", wraplength=330)
+        self.texto.pack(anchor="w", pady=8)
 
-        botones = ttk.Frame(panel)
-        botones.pack(anchor="w", pady=(2, 12))
-        ttk.Button(botones, text="Calcular ruta", command=self.calcular).pack(side="left")
-        ttk.Button(botones, text="⇄ Intercambiar", command=self.intercambiar).pack(side="left", padx=6)
-        ttk.Button(botones, text="Ver toda la red", command=self.ver_todo).pack(side="left")
-        self.bind("<Return>", lambda e: self.calcular())
-
-        self.resumen = ttk.Label(panel, text="Elija origen y destino.", justify="left",
-                                 wraplength=380, font=("TkDefaultFont", 10))
-        self.resumen.pack(anchor="w", pady=(0, 8))
-
-        columnas = ("n", "via", "tramo", "km", "costo")
-        marco_tabla = ttk.Frame(panel)
-        marco_tabla.pack(fill="both", expand=True)
-        self.tabla = ttk.Treeview(marco_tabla, columns=columnas, show="headings", height=18)
-        anchos = {"n": 32, "via": 70, "tramo": 190, "km": 60, "costo": 60}
-        titulos = {"n": "#", "via": "Vía", "tramo": "Tramo", "km": "km", "costo": "Costo"}
-        for c in columnas:
-            self.tabla.heading(c, text=titulos[c])
-            self.tabla.column(c, width=anchos[c], anchor="e" if c in ("n", "km", "costo") else "w")
-        barra = ttk.Scrollbar(marco_tabla, orient="vertical", command=self.tabla.yview)
-        self.tabla.configure(yscrollcommand=barra.set)
-        self.tabla.pack(side="left", fill="both", expand=True)
-        barra.pack(side="right", fill="y")
-
-    def _construir_mapa(self):
-        marco = ttk.Frame(self)
-        marco.pack(side="right", fill="both", expand=True)
-        self.fig = Figure(figsize=(7, 8), dpi=100)
+        self.fig = Figure(figsize=(7, 8))
         self.ax = self.fig.add_subplot(111)
-        self.canvas = FigureCanvasTkAgg(self.fig, master=marco)
-        NavigationToolbar2Tk(self.canvas, marco).pack(side="bottom", fill="x")
-        self.canvas.get_tk_widget().pack(fill="both", expand=True)
+        self.lienzo = FigureCanvasTkAgg(self.fig, master=self)
+        self.lienzo.get_tk_widget().pack(side="right", fill="both", expand=True)
+        self.dibujar([], None, None)
 
-    # ------------------------------------------------------------------ mapa
-    def _xy(self, nodo):
-        d = self.G.nodes[nodo]
-        return d["x"] / 1000, d["y"] / 1000
-
-    def _dibujar_red(self):
+    def dibujar(self, cerradas, normal, alterna):
         ax = self.ax
         ax.clear()
-        segs = [np.array(d["geometry"].coords) / 1000 for *_, d in self.G.edges(data=True)]
-        ax.add_collection(LineCollection(segs, colors=GRIS_RED, linewidths=0.7, zorder=1))
-        mun = [self._xy(n) for n in self.etiqueta_a_nodo.values()]
-        ax.scatter(*zip(*mun), s=5, color=TINTA_SUAVE, zorder=2)
+        trazo = lambda aristas: [np.array(self.G.edges[e]["geometry"].coords) / 1000 for e in aristas]
+        ax.add_collection(LineCollection(trazo(self.G.edges()), colors=GRIS, linewidths=1))
+        for r, color, ancho in ((normal, OSCURO, 2.5), (alterna, NARANJA, 3)):
+            if r:
+                ax.add_collection(LineCollection(trazo(zip(r["nodos"][:-1], r["nodos"][1:])),
+                                                 colors=color, linewidths=ancho))
+        if cerradas:
+            ax.add_collection(LineCollection(trazo(cerradas), colors=ROJO, linewidths=3,
+                                             linestyles=":"))
+        for n in lista_ciudades(self.G):
+            x, y = self.G.nodes[n]["x"] / 1000, self.G.nodes[n]["y"] / 1000
+            ax.plot(x, y, "o", color=OSCURO, ms=4)
+            ax.annotate(nombre_corto(self.G, n), (x, y), xytext=(3, 2),
+                        textcoords="offset points", fontsize=7)
         ax.set_aspect("equal")
         ax.axis("off")
-        self.capa_ruta = []
-        self.ver_todo()
+        ax.autoscale()
+        self.lienzo.draw_idle()
 
-    def ver_todo(self):
-        principal = max(nx.connected_components(self.G), key=len)
-        xs, ys = zip(*(self._xy(n) for n in principal))
-        mx, my = 0.04 * (max(xs) - min(xs)), 0.04 * (max(ys) - min(ys))
-        self.ax.set_xlim(min(xs) - mx, max(xs) + mx)
-        self.ax.set_ylim(min(ys) - my, max(ys) + my)
-        self.canvas.draw_idle()
+    def quitar_cierres(self):
+        self.cerradas.selection_clear(0, "end")
+        self.calcular()
 
-    def _dibujar_ruta(self, r):
-        for artista in self.capa_ruta:
-            artista.remove()
-        nodos = r["nodos"]
-        segs = []
-        for a, b in zip(nodos[:-1], nodos[1:]):
-            segs.append(np.array(self.G.edges[a, b]["geometry"].coords) / 1000)
-        lc = LineCollection(segs, colors=NARANJA, linewidths=3, zorder=3)
-        self.ax.add_collection(lc)
-        (xo, yo), (xd, yd) = self._xy(nodos[0]), self._xy(nodos[-1])
-        p1 = self.ax.scatter([xo], [yo], s=90, color=AZUL, edgecolor="white", linewidth=1.5, zorder=4)
-        p2 = self.ax.scatter([xd], [yd], s=90, color=TINTA, edgecolor="white", linewidth=1.5,
-                             marker="s", zorder=4)
-        t1 = self.ax.annotate(" " + self.G.nodes[nodos[0]]["nombre"], (xo, yo), fontsize=9,
-                              color=TINTA, zorder=5, fontweight="bold")
-        t2 = self.ax.annotate(" " + self.G.nodes[nodos[-1]]["nombre"], (xd, yd), fontsize=9,
-                              color=TINTA, zorder=5, fontweight="bold")
-        self.capa_ruta = [lc, p1, p2, t1, t2]
-
-        todos = np.vstack(segs)
-        x0, y0 = todos.min(axis=0)
-        x1, y1 = todos.max(axis=0)
-        margen = max(x1 - x0, y1 - y0) * 0.15 + 20
-        self.ax.set_xlim(x0 - margen, x1 + margen)
-        self.ax.set_ylim(y0 - margen, y1 + margen)
-        self.canvas.draw_idle()
-
-    # ------------------------------------------------------------------ acciones
-    def _nodo(self, combo, rotulo):
-        texto = combo.get()
-        if texto not in self.etiqueta_a_nodo:
-            messagebox.showwarning("Falta elegir",
-                                   f"Elija el {rotulo} de la lista desplegable "
-                                   f"(escriba parte del nombre y despliegue la lista).")
-            return None
-        return self.etiqueta_a_nodo[texto]
-
-    def intercambiar(self):
-        a, b = self.origen.get(), self.destino.get()
-        self.origen.set(b)
-        self.destino.set(a)
+    def dias_de_cierre(self):
+        """Días del cuadro; si el texto no es un número válido, usa DIAS_CIERRE."""
+        try:
+            return max(1, min(365, int(self.dias.get())))
+        except (tk.TclError, ValueError):
+            self.dias.set(c.DIAS_CIERRE)
+            return c.DIAS_CIERRE
 
     def calcular(self):
-        o = self._nodo(self.origen, "origen")
-        d = self._nodo(self.destino, "destino") if o else None
-        if not (o and d):
+        if self.origen.get() not in self.nodo or self.destino.get() not in self.nodo:
+            self.texto.config(text="Elija origen y destino.")
             return
-        if o == d:
-            messagebox.showinfo("Mismo municipio", "El origen y el destino son el mismo municipio.")
+        if self.origen.get() == self.destino.get():
+            self.texto.config(text="El origen y el destino son la misma ciudad.")
             return
-        r = rutas.ruta_minima(self.G, o, d)
-        for fila in self.tabla.get_children():
-            self.tabla.delete(fila)
-        if r is None:
-            self.resumen.config(text="No hay ruta entre estos municipios.")
-            messagebox.showinfo(
-                "Sin ruta",
-                "No existe ninguna ruta en la red entre estos dos municipios: quedaron en "
-                f"componentes conexas distintas (componentes {self.componente[o]} y "
-                f"{self.componente[d]}).\n\nCon datos simulados suele deberse a la tolerancia "
-                "de unión de extremos (TOLERANCIA_UNION_M en config.py): huecos mayores que "
-                "esa tolerancia cortan la vía. Revise la tabla de sensibilidad en "
-                "reporte_construccion.txt.")
-            return
-        via = [t for t in r["tramos"] if t["tipo"] == "via"]
-        con = [t for t in r["tramos"] if t["tipo"] == "conector"]
-        self.resumen.config(text=(
-            f"Costo mínimo: {r['costo']:,.1f} {r['unidad']}\n"
-            f"Distancia: {r['km']:,.1f} km  ({sum(t['km'] for t in con):.1f} km en conectores "
-            f"municipio–vía)\n"
-            f"Aristas recorridas: {len(r['tramos'])}  ·  nodos: {len(r['nodos'])}\n"
-            f"Concesiones atravesadas: "
-            f"{', '.join(sorted({c for t in via for c in t['concesion'].split(', ') if c != '-'})) or 'ninguna'}"))
-        # aristas consecutivas de la misma vía se muestran en una sola fila
-        filas = []
-        for t in r["tramos"]:
-            if filas and filas[-1]["via"] == t["via"] and filas[-1]["nombre"] == t["nombre"]:
-                filas[-1]["km"] += t["km"]
-                filas[-1]["costo"] += t["costo"]
-            else:
-                filas.append(dict(t))
-        for i, t in enumerate(filas, start=1):
-            self.tabla.insert("", "end", values=(i, t["via"], t["nombre"],
-                                                 f"{t['km']:.1f}", f"{t['costo']:.1f}"))
-        self._dibujar_ruta(r)
-
-
-def main():
-    G = cargar_grafo()
-    app = AppRutas(G)
-    app.mainloop()
+        o, d = self.nodo[self.origen.get()], self.nodo[self.destino.get()]
+        cerradas = [self.arista[self.cerradas.get(i)] for i in self.cerradas.curselection()]
+        dias = self.dias_de_cierre()
+        normal = ruta(self.G, o, d)
+        H = self.G.copy()
+        H.remove_edges_from(cerradas)
+        alterna = ruta(H, o, d)
+        t = self.toneladas.get((o, d), 0)
+        lineas = [f"{self.origen.get()} -> {self.destino.get()}",
+                  f"Ruta normal: {normal['km']:,.0f} km, {normal['costo']:,.0f} COP por tonelada.",
+                  f"Carga de esta pareja (RNDC 2015): {t:,.0f} t al año.",
+                  f"Vías cerradas: {len(cerradas)}."]
+        if alterna is None:
+            lineas.append(f"\nCON ESTOS CIERRES NO HAY RUTA entre las dos ciudades: "
+                          f"{t:,.0f} t al año quedan sin ruta "
+                          f"({t * dias / 365:,.0f} t en {dias} días).")
+        elif alterna["nodos"] == normal["nodos"]:
+            lineas.append("\nLos cierres no afectan esta ruta.")
+        else:
+            extra = alterna["costo"] - normal["costo"]
+            lineas += [f"\nRuta alterna: {alterna['km']:,.0f} km (+{alterna['km'] - normal['km']:,.0f} km).",
+                       f"Sobrecosto: {extra:,.0f} COP por tonelada.",
+                       f"Sobrecosto de esta pareja: {extra * t / 1e6:,.0f} millones COP al año; "
+                       f"{extra * t * dias / 365 / 1e6:,.0f} millones en {dias} días."]
+        self.texto.config(text="\n".join(lineas))
+        self.dibujar(cerradas, normal, alterna)
 
 
 if __name__ == "__main__":
-    main()
+    App().mainloop()

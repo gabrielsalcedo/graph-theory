@@ -1,0 +1,42 @@
+# R / RStudio
+.Rhistory
+.RData
+.Rproj.user/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Datos crudos de más de 50 MB: no se suben (ver data/raw/README.md para descargarlos).
+# El RNDC se sube comprimido (base1.zip, base2.zip) y la red de INVIAS partida en
+# data/raw/invias/.
+data/raw/base1.csv
+data/raw/base2.csv
+data/raw/invias.geojson
+data/final/rndc_limpio.rds
+
+# Intermedios pesados que se regeneran al correr el código
+*.pkl
+*.gpkg
+
+# Archivos para revisar a mano antes de borrarlos (no se suben)
+_revisar/
+
+# Texto de la descripción del pull request (se pega en GitHub Desktop)
+DESCRIPCION_PR.md
+
+# LaTeX: archivos auxiliares de compilación
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
