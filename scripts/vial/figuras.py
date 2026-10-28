@@ -197,7 +197,9 @@ def cuadrantes(t):
     ax.axhline(techo / 1000 * 0.96, color=GRIS_CLARO, lw=0.6)
     ax.text(con["carga_t"].max() / 1e6, techo / 1000 * 1.02,
             "puentes: sin ruta alterna", ha="right", fontsize=6.5, color=TINTA_SUAVE)
-    for f in con.nlargest(6, "sobrecosto_cop_anual").itertuples():
+    # espacio a la derecha para que los nombres largos quepan dentro del gráfico
+    ax.set_xlim(right=con["carga_t"].max() / 1e6 * 1.4)
+    for f in con.nlargest(4, "sobrecosto_cop_anual").itertuples():
         ax.annotate(f.nombre, (f.carga_t / 1e6, f.y / 1000), xytext=(4, 2),
                     textcoords="offset points", fontsize=6, color=TINTA)
     for i, f in enumerate(con[con["es_puente"]].sort_values("carga_t").itertuples()):
@@ -210,7 +212,7 @@ def cuadrantes(t):
     ax.set_axisbelow(True)
     for lado in ("top", "right"):
         ax.spines[lado].set_visible(False)
-    ax.legend(frameon=False, loc="upper left", bbox_to_anchor=(1, 1))
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=4)
     guardar(fig, "cuadrantes.png")
 
 

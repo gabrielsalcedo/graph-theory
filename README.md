@@ -121,13 +121,12 @@ Tarda cerca de 2,5 minutos y corre, en orden, los pasos 02 a 08. Se detiene si a
 | 04 | `python scripts/04_validacion_y_descripcion.py` | `outputs/resultados/validacion.txt`, `validacion_pares_rndc.csv` | 2 s |
 | 05 | `python scripts/05_simulacion_cierres.py` | `outputs/resultados/cierres_aristas.csv`, `cierres_tramos.csv` | 3 s |
 | 06 | `python scripts/06_pruebas.py` | en pantalla: `9/9 pruebas superadas` | 2 s |
-| 07 | `python scripts/07_intermediacion_y_carga.py` | `outputs/resultados/intermediacion_y_carga.csv` | 30 s |
+| 07 | `python scripts/07_intermediacion_y_carga.py` | `outputs/resultados/intermediacion_y_carga.csv`, `tres_angulos.csv` | 30 s |
 | 08 | `python scripts/08_figuras.py` | `outputs/figuras/*.png` | 10 s |
 
 **La etapa de modelamiento** (red detallada, grafo de análisis, validación y descripción
-estructural) son los pasos 02, 03 y 04. Los pasos 05 y 07 son la siguiente etapa
-(implementación: cierres, intermediación y carga); su código ya está y corre, y sus
-resultados todavía no están en los documentos entregados.
+estructural) son los pasos 02, 03 y 04. Los pasos 05 y 07 son la implementación (cierres,
+intermediación y carga), cuyos resultados están en el informe final.
 
 ### Ruta completa (desde los datos crudos)
 
@@ -184,6 +183,10 @@ Si replica el proyecto, estas son las cifras que debe obtener (entorno de
 | Pruebas | 9/9 | `06_pruebas.py` |
 | Intermediación: primera arista | Buga–Zarzal, 32 % de los pares de ciudades | `intermediacion_y_carga.csv` |
 | Spearman intermediación vs carga | 0,76 | `07_intermediacion_y_carga.py` |
+| Spearman sin puentes: C_B vs I, x_e vs I | 0,79; 0,89 | `07_intermediacion_y_carga.py` |
+| Aristas en el top 10 de C_B, x_e e I a la vez | 2 (Buga–Zarzal, Bogotá–Espinal) | `tres_angulos.csv` |
+| Grupos: crítico, importante, vulnerable, secundario, sin carga | 18, 14, 17, 18, 10 | `cierres_aristas.csv` |
+| Puentes: carga sin ruta | 9,45 / 0,98 / 0,97 millones de t | `cierres_aristas.csv` |
 | Cierre con más sobrecosto | Buga–Zarzal, 908,6 mil millones COP/año | `cierres_aristas.csv` |
 | Tramos de INVIAS simulados | 243 (100 cierres distintos) | `05_simulacion_cierres.py` |
 
@@ -205,6 +208,22 @@ Si replica el proyecto, estas son las cifras que debe obtener (entorno de
 Las demás figuras: `red_detallada.png` y `grafo_analisis.png` (paso 08, modelamiento);
 `intermediacion.png`, `carga_vs_intermediacion.png`, `cuadrantes.png` y
 `mapa_criticos.png` (paso 08, a partir de los pasos 05 y 07).
+
+## Documentos
+
+| Carpeta | Contenido |
+|---|---|
+| `informe/entrega2/` | Segunda entrega (planteamiento, marco teórico, modelo) |
+| `informe/final/` | Informe final: lo anterior más Implementación, Resultados y Conclusiones (`final.pdf` ya compilado) |
+| `informe/presentacion/` | Diapositivas en Beamer (`presentacion.pdf` ya compilado) y guion de 7 minutos (`guion.md`) |
+
+Los tres documentos toman las figuras de `outputs/figuras/` con `\graphicspath`, así que
+se compilan desde su propia carpeta (por ejemplo, `latexmk -pdf final.tex` dentro de
+`informe/final/`). Con TinyTeX hacen falta estos paquetes:
+`tlmgr install ieeetran cite algorithms algorithmicx float xurl booktabs beamer courier times psnfss`. En Overleaf, suba la carpeta `informe/` y `outputs/figuras/` conservando
+esa estructura. El informe final cita en la Sección VIII las cifras de `outputs/resultados/`:
+Tabla III sale de `cierres_aristas.csv`, y la comparación de los tres ángulos de
+`tres_angulos.csv` y de la salida del paso 07.
 
 ## Supuestos del modelo
 
