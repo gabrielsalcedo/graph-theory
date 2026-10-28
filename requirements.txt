@@ -1,0 +1,13 @@
+# Mismas versiones que environment.yml, para instalar con pip (por ejemplo en Google Colab):
+#   pip install -r requirements.txt
+# Ojo: con pip, shapely trae su propia versión de GEOS; si las cifras de la red detallada
+# no coinciden con las del README, use environment.yml (conda).
+geopandas==1.2.0
+shapely==2.2.0
+pyogrio==0.13.0
+pyproj==3.7.2
+networkx==3.6.1
+pandas==3.0.6
+numpy==2.4.6
+scipy==1.17.1
+matplotlib==3.11.2

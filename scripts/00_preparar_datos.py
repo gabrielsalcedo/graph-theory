@@ -1,33 +1,28 @@
 """
-PASO 0 — Prepara los datos crudos después de clonar el repositorio.
+PASO 0 — Prepara los datos crudos del RNDC (solo para la ruta completa).
 
-GitHub no acepta archivos de más de 100 MB, así que en el repositorio los datos pesados
-vienen comprimidos. Este script los descomprime en data/raw/:
-  base1.zip   -> base1.csv     (RNDC 2015, parte 1; lo usa 01_limpieza_rndc.R)
-  base2.zip   -> base2.csv     (RNDC 2015, parte 2)
-  invias.zip  -> invias.geojson (red vial; opcional: Python también lee el .zip directo)
+El RNDC 2015 viene en el repositorio comprimido (base1.zip, base2.zip), porque los .csv
+pesan más de 100 MB y GitHub no los acepta. Este script los descomprime en data/raw/
+para que 01_limpieza_rndc.R los pueda leer.
 
-Uso (desde la carpeta raíz del proyecto):  python scripts/00_preparar_datos.py
-Solo hace falta para volver a correr la limpieza en R. Para construir el grafo basta con
-data/final/ (ya incluido) y data/raw/invias.zip.
+Uso (desde la carpeta raíz):  python scripts/00_preparar_datos.py
+No hace falta para la ruta rápida: data/final/ ya viene en el repositorio y la red vial
+viene partida en data/raw/invias/ (el paso 02 la une sola).
 """
 
 import zipfile
-from pathlib import Path
 
-RAW = Path(__file__).resolve().parent.parent / "data" / "raw"
+import config as c
 
-for nombre in ("base1", "base2", "invias"):
-    zip_ = RAW / f"{nombre}.zip"
+for zip_ in c.ZIPS_RNDC:
     if not zip_.exists():
-        print(f"FALTA   {zip_.name}  (ver README: Datos)")
+        print(f"FALTA   {zip_.name}  (ver data/raw/README.md)")
         continue
     with zipfile.ZipFile(zip_) as z:
         for miembro in z.namelist():
-            destino = RAW / miembro
-            if destino.exists():
+            if (c.CARPETA_RAW / miembro).exists():
                 print(f"YA ESTÁ {miembro}")
             else:
                 print(f"EXTRAE  {miembro} ...")
-                z.extract(miembro, RAW)
+                z.extract(miembro, c.CARPETA_RAW)
 print("Listo.")

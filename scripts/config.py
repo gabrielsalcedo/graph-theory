@@ -1,117 +1,88 @@
 """
-CONFIGURACIÓN ÚNICA DEL PROYECTO.
+PARÁMETROS DEL PROYECTO (único archivo que se cambia).
 
-Todos los parámetros del modelo están aquí. Si se cambia uno, hay que volver a correr
-ejecutar_todo.py (o desde 02_construir_grafo.py en adelante). Los marcados PROVISIONAL son
-decisiones de modelamiento; su justificación está en RECUENTO.md y en
-outputs/reporte_modelamiento/.
+Todas las rutas, parámetros del modelo y constantes de los scripts están aquí.
+Si cambia un parámetro de las secciones 3 a 6, vuelva a correr ejecutar_todo.py.
+La justificación de cada valor está en RECUENTO.md.
 """
 
 from pathlib import Path
 
-RAIZ = Path(__file__).resolve().parent.parent          # carpeta graphs-appl/
-DATOS = RAIZ / "data"
-SALIDAS = RAIZ / "outputs"
+RAIZ = Path(__file__).resolve().parent.parent          # carpeta raíz del repositorio
 
-# ---------------------------------------------------------------------------
-# 1. Archivos
-# ---------------------------------------------------------------------------
-# Red vial primaria de INVIAS (HDX "Colombia: Roads"). Si no está el .geojson
-# (250 MB, no cabe en GitHub) se lee el comprimido invias.zip directamente.
-ARCHIVO_RED = (DATOS / "raw" / "invias.geojson"
-               if (DATOS / "raw" / "invias.geojson").exists()
-               else DATOS / "raw" / "invias.zip")
-# Salidas de scripts/01_limpieza_rndc.R
-ARCHIVO_MUNICIPIOS = DATOS / "final" / "nodos_demanda.csv"   # un punto por municipio + toneladas
-ARCHIVO_OD = DATOS / "final" / "matriz_od.csv"               # matriz origen-destino limpia
-# Grafo de juguete con respuestas conocidas (lo usa 06_pruebas.py)
-ARCHIVO_JUGUETE = DATOS / "pruebas" / "grafo_juguete.json"
+# ---------------------------------------------------------------- 1. Datos de entrada
+CARPETA_RAW = RAIZ / "data/raw"
+# Red vial de INVIAS (HDX "Colombia: Roads"). El archivo descargado pesa 250 MB y no se
+# sube: se parte en 11 archivos de < 25 MB con dividir_invias.py y el paso 02 los une.
+RED_VIAL_COMPLETA = CARPETA_RAW / "invias.geojson"
+CARPETA_PARTES_RED = CARPETA_RAW / "invias"
+N_PARTES_RED = 11
+PARTES_RED_VIAL = [CARPETA_PARTES_RED / f"invias_parte_{i:02d}.geojson"
+                   for i in range(1, N_PARTES_RED + 1)]
+TAMANO_MAX_PARTE = 25_000_000                        # bytes por parte (GitHub avisa > 50 MB)
+# RNDC 2015, comprimido (el .csv pesa > 100 MB). 00_preparar_datos.py lo descomprime.
+ZIPS_RNDC = [CARPETA_RAW / "base1.zip", CARPETA_RAW / "base2.zip"]
 
-CARPETA_SALIDA = SALIDAS / "resultados"
-CARPETA_FIGURAS = SALIDAS / "figuras"
-ARCHIVO_GRAFO = CARPETA_SALIDA / "grafo.pkl"                 # grafo de análisis
-ARCHIVO_DETALLADO = CARPETA_SALIDA / "grafo_detallado.pkl"   # red detallada
+MUNICIPIOS = RAIZ / "data/final/nodos_demanda.csv"   # salida de 01_limpieza_rndc.R
+MATRIZ_OD = RAIZ / "data/final/matriz_od.csv"        # salida de 01_limpieza_rndc.R
+JUGUETE = RAIZ / "data/pruebas/grafo_juguete.json"   # grafo pequeño para las pruebas
 
-# ---------------------------------------------------------------------------
-# 2. Columnas: nombre en el archivo -> nombre interno
-# ---------------------------------------------------------------------------
-COLUMNAS_RED = {
-    "objectid":      "id_tramo",
-    "codigotramo":   "codigo_via",     # p. ej. "4510" = ruta 45, tramo 10
-    "nombreruta":    "cod_tramo",      # nombre del corredor ("Troncal del Magdalena")
-    "sector":        "nombre_tramo",   # "Aguachica – Gamarra" (nombretramo viene vacío)
-    "ruta":          "ruta",
-    "administrador": "administrador",
-    "superficie":    "superficie",
-    "calzada":       "calzada",
-}
-COLUMNAS_MUNICIPIOS = {
-    "COD":          "cod_mpio",
-    "NOMBRE_MPIO":  "nombre",
-    "DEPARTAMENTO": "departamento",
-    "LON":          "lon",
-    "LAT":          "lat",
-    "TON_TOTAL":    "ton_total",       # toneladas que salen + llegan
-}
-COLUMNAS_OD = {
-    "ORIGEN":    "cod_origen",
-    "DESTINO":   "cod_destino",
-    "VIAJES":    "viajes",
-    "TONELADAS": "toneladas",
-}
+# ---------------------------------------------------------------- 2. Salidas
+GRAFO = RAIZ / "outputs/grafo"            # el grafo de análisis en CSV (paso 03)
+RESULTADOS = RAIZ / "outputs/resultados"  # tablas y reportes
+FIGURAS = RAIZ / "outputs/figuras"        # figuras de los documentos
+# Red detallada D con su geometría: la produce el paso 02 y la lee el paso 03.
+# Pesa poco, pero se regenera siempre, así que no se sube (.gitignore: *.pkl).
+RED_DETALLADA_PKL = GRAFO / "red_detallada.pkl"
+REPORTE_RED = RESULTADOS / "reporte_red_detallada.txt"      # lo que anota el paso 02
+REPORTE_GRAFO = RESULTADOS / "reporte_grafo_analisis.txt"   # lo que anota el paso 03
 
-# Código de 'superficie' que significa AFIRMADO (sin pavimentar). PROVISIONAL: el archivo
-# trae 1, 2, 3 sin diccionario; 567 de 652 tramos son "3" (supuesto: pavimentado).
-SUPERFICIE_AFIRMADO = "1"
-# Tramos que se descartan (búsqueda en el nombre del tramo).
-EXCLUIR_TRAMOS_CON_NOMBRE = "fuera de servicio"
-
-# ---------------------------------------------------------------------------
-# 3. Sistemas de referencia
-# ---------------------------------------------------------------------------
-CRS_ENTRADA_RED = "EPSG:4326"      # solo se usa si el archivo no trae CRS
-# EPSG:9377 = MAGNA-SIRGAS 2018 / Origen-Nacional: proyección oficial de Colombia, en
-# METROS y con poca deformación en todo el país.
+# Proyección oficial de Colombia (MAGNA-SIRGAS Origen Nacional): mide en metros.
 CRS_METRICO = "EPSG:9377"
-LIMITES_COLOMBIA = (-82.0, -4.5, -66.5, 13.6)   # lon_min, lat_min, lon_max, lat_max
+CRS_GEOGRAFICO = "EPSG:4326"              # longitud y latitud (DIVIPOLA, tablas de salida)
 
-# ---------------------------------------------------------------------------
-# 4. Limpieza topológica de la red (vial/limpieza.py)
-# ---------------------------------------------------------------------------
-SIMPLIFICAR_GEOMETRIA_M = 5.0           # Douglas-Peucker: 5,7 M -> 148 mil vértices, -0,28 % km
-TOLERANCIA_UNION_M = 50.0               # PROVISIONAL: con 10 m quedan 114 componentes
-TOLERANCIA_DUPLICADO_M = 30.0           # línea contenida en este buffer de otra = duplicado
-FUSIONAR_CALZADAS_DOBLES = True         # dos calzadas -> una arista calzada = "2"
-CORREGIR_COORDENADAS_INVERTIDAS = True  # (lat, lon) invertidas se corrigen si caen en Colombia
-TOLERANCIAS_SENSIBILIDAD_M = [5, 10, 25, 50, 100]   # se reportan componentes con cada una
+# ---------------------------------------------------------------- 3. Limpieza de la red
+EXCLUIR_SECTOR = "fuera de servicio"      # tramos que se descartan (texto en 'sector')
+SIMPLIFICAR_M = 5        # Douglas-Peucker: quita vértices sobrantes (-0,28 % de km)
+DUPLICADO_M = 30         # línea dentro de 30 m de otra más larga = duplicado o 2.ª calzada
+UNION_M = 50             # extremos a menos de 50 m se unen (con 10 m quedan 114 componentes)
 
-# ---------------------------------------------------------------------------
-# 5. Red detallada (vial/grafo.py)
-# ---------------------------------------------------------------------------
-N_CIUDADES = 50                         # municipios con más carga que se conectan (74,5 % t)
-DISTANCIA_MAX_CONEXION_M = 10_000       # PROVISIONAL: radio de conexión de una cabecera
-RADIO_CONEXION_ESPECIAL_M = {"11001": 20_000}   # Bogotá: troncales del norte a ~19 km
-FACTOR_SINUOSIDAD_CONECTOR = 1.3        # km del conector = línea recta × factor
-CONECTAR_TODAS_LAS_RUTAS_CERCANAS = True  # travesías urbanas (INVIAS no tiene calles)
-PODAR_RAMAS_SIN_CIUDAD = True           # quita componentes sin ciudad y ramales sin salida
-CONTRAER_ARISTAS_MENORES_M = 1_000      # PROVISIONAL: dobles calzadas e intercambiadores
+# ---------------------------------------------------------------- 4. Red detallada
+N_CIUDADES = 50          # municipios con más carga que se conectan a la red (74,5 % de t)
+RADIO_CONEXION_M = 10_000            # una ciudad se une a las vías a menos de 10 km
+COD_BOGOTA = "11001"
+RADIO_BOGOTA_M = 20_000              # Bogotá: las troncales del norte empiezan a ~19 km
+SINUOSIDAD_CONECTOR = 1.3            # km del conector = línea recta x 1,3
+ANCLAJE_EXTREMO_M = 1.0              # un anclaje a < 1 m del extremo usa el nodo existente
+CONTRAER_M = 1_000                   # aristas < 1 km (intercambiadores) se funden
 
-# ---------------------------------------------------------------------------
-# 6. Grafo de análisis (vial/ciudades.py) — el grafo que se estudia
-# ---------------------------------------------------------------------------
-N_NODOS_CIUDADES = 25                   # PROVISIONAL: ciudades/áreas metropolitanas
-RADIO_AGLOMERACION_M = 25_000           # PROVISIONAL: municipios que se funden en un área
-RADIO_CRUCES_M = 25_000                 # PROVISIONAL: bifurcaciones que se agrupan
-EPS_REDUNDANCIA = 0.0                   # spanner: se quita A–B si otro camino cuesta <= (1+eps)·w
+# ---------------------------------------------------------------- 5. Grafo de análisis
+N_VERTICES_CIUDAD = 25   # ciudades o áreas metropolitanas con más carga
+RADIO_AREA_M = 25_000    # municipios a menos de 25 km forman un área metropolitana
+RADIO_CRUCES_M = 25_000  # bifurcaciones a menos de 25 km se agrupan en un cruce
 
-# ---------------------------------------------------------------------------
-# 7. Costo económico (vial/costo.py)
-# ---------------------------------------------------------------------------
-# COP de 2015 por tonelada-km: promedio de COSTO_TKM_PONDERADO de
-# data/final/costo_por_config.csv, ponderado por toneladas, configuraciones CONFIABLE.
-COSTO_COP_TON_KM = 248.6                # PROVISIONAL
+# ---------------------------------------------------------------- 6. Costo
+# Flete promedio del RNDC (COP de 2015 por tonelada-km), ponderado por toneladas, de las
+# 7 configuraciones de vehículo confiables de data/final/costo_por_config.csv.
+TARIFA_COP_TKM = 248.6
+# peso de cada arista: w = km x TARIFA = costo de mover una tonelada por ella
 
-# ---------------------------------------------------------------------------
-# 8. Centralidad
-# ---------------------------------------------------------------------------
-TOP_ARISTAS_CRITICAS = 15
+# ---------------------------------------------------------------- 7. Validación
+N_PARES_VALIDACION = 300  # pares O-D con más toneladas que se comparan con el RNDC
+
+# ---------------------------------------------------------------- 8. Cierres
+DIAS_CIERRE = 14          # cierre corto de ejemplo (p. ej. un derrumbe de dos semanas)
+# Un tramo de INVIAS cierra una arista si recorre al menos 1 km de ella, o la mitad del
+# tramo si este es más corto (así no cuentan los metros compartidos al entrar a una ciudad).
+KM_MIN_TRAMO_EN_ARISTA = 1.0
+FRACCION_MIN_TRAMO = 0.5
+
+# ---------------------------------------------------------------- 9. Resultados y figuras
+TOP = 15                  # cuántas aristas se muestran en los rankings
+SIMPLIFICAR_SALIDA_G_M = 50     # trazado de las aristas de G en aristas.csv (solo dibujo)
+SIMPLIFICAR_SALIDA_D_M = 200    # trazado de la red detallada en red_detallada.csv (solo dibujo)
+DPI_FIGURAS = 250
+
+# ---------------------------------------------------------------- 10. Pruebas
+N_PARES_PRUEBA = 200      # pares al azar en que se compara el Dijkstra propio con networkx
+SEMILLA_PRUEBA = 1

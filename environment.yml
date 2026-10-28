@@ -1,0 +1,22 @@
+# Entorno de Python del proyecto, con las versiones exactas con que se obtuvieron los
+# resultados del repositorio. Otras versiones de las librerías geométricas (shapely/GEOS)
+# pueden mover algún cruce de la red detallada y cambiar levemente las cifras.
+#   conda env create -f environment.yml
+#   conda activate vial
+name: vial
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.17
+  - geopandas=1.2.0
+  - shapely=2.2.0
+  - geos=3.14.1
+  - pyogrio=0.13.0
+  - pyproj=3.7.2
+  - proj=9.8.1
+  - networkx=3.6.1
+  - pandas=3.0.6
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - matplotlib=3.11.2
+  - tk=8.6.13          # para la ventana de scripts/app_rutas.py

@@ -1,87 +1,62 @@
-"""Rutas de costo mínimo con el algoritmo de Dijkstra (implementación propia).
+"""
+Rutas de menor costo (implementación propia de Dijkstra con montículo binario).
 
-Se implementa a mano, en vez de llamar nx.dijkstra_path, para que el algoritmo sea
-visible en el proyecto. Las pruebas comparan este resultado con networkx.
-
-Dijkstra (1959), con cola de prioridad (montículo binario):
-  1. dist[origen] = 0; el resto, infinito.
-  2. Sacar de la cola el nodo no visitado con menor distancia tentativa.
-  3. Para cada vecino, si dist[nodo] + costo(arista) < dist[vecino], actualizarlo
-     ("relajar" la arista) y guardar de dónde vino.
-  4. Repetir hasta sacar el destino (o vaciar la cola: no hay ruta).
-Exige costos NO negativos: por eso costo.costo_arista nunca debe devolver negativos.
-Complejidad: O((n + m) log n).
+  dijkstra()       costo mínimo desde un origen a todos los vértices
+  camino()         reconstruye la ruta a partir de 'previo'
+  ruta()           la ruta más barata entre dos vértices
+  costos_desde()   c_G(o, d) para todo origen o con carga
 """
 
 import heapq
 import math
 
-from . import costo as modulo_costo
 
+def dijkstra(G, origen, peso="costo"):
+    """Costo mínimo desde 'origen' a todos los vértices (Dijkstra, 1959).
 
-def dijkstra(G, origen, destino=None, peso="costo"):
-    """Devuelve (distancias, predecesores). Si se da 'destino', se detiene al alcanzarlo."""
-    dist = {origen: 0.0}
-    previo = {origen: None}
+    1. dist[origen] = 0 y el resto infinito.
+    2. Se saca de la cola el vértice no visitado con menor distancia.
+    3. Para cada vecino: si pasar por este vértice es más barato, se actualiza su
+       distancia y se anota de dónde vino (previo).
+    4. Se repite hasta vaciar la cola.
+    Devuelve (dist, previo). Un vértice que no aparece en dist no es alcanzable.
+    """
+    dist, previo = {origen: 0.0}, {origen: None}
     visitados = set()
-    cola = [(0.0, 0, origen)]          # (distancia, desempate, nodo)
-    contador = 1
+    cola = [(0.0, origen)]
     while cola:
-        d, _, nodo = heapq.heappop(cola)
-        if nodo in visitados:
-            continue                    # entrada vieja de la cola
-        visitados.add(nodo)
-        if nodo == destino:
-            break
-        for vecino, datos in G[nodo].items():
-            c = datos[peso]
-            if c < 0:
-                raise ValueError(f"Costo negativo en la arista {nodo}-{vecino}: Dijkstra no aplica.")
-            nueva = d + c
+        d, n = heapq.heappop(cola)
+        if n in visitados:
+            continue
+        visitados.add(n)
+        for vecino, datos in G[n].items():
+            nueva = d + datos[peso]
             if nueva < dist.get(vecino, math.inf):
-                dist[vecino] = nueva
-                previo[vecino] = nodo
-                heapq.heappush(cola, (nueva, contador, vecino))
-                contador += 1
+                dist[vecino], previo[vecino] = nueva, n
+                heapq.heappush(cola, (nueva, vecino))
     return dist, previo
 
 
-def reconstruir(previo, destino):
-    camino = []
-    nodo = destino
-    while nodo is not None:
-        camino.append(nodo)
-        nodo = previo[nodo]
-    return camino[::-1]
+def camino(previo, destino):
+    """Reconstruye la ruta siguiendo 'previo' desde el destino hasta el origen."""
+    nodos = []
+    while destino is not None:
+        nodos.append(destino)
+        destino = previo[destino]
+    return nodos[::-1]
 
 
-def ruta_minima(G, origen, destino, peso="costo"):
-    """Ruta de menor costo entre dos nodos. Devuelve None si no hay ruta.
-
-    Resultado: dict con costo total, km, lista de nodos y una tabla de aristas recorridas.
-    """
-    dist, previo = dijkstra(G, origen, destino, peso)
+def ruta(G, origen, destino):
+    """Ruta más barata entre dos vértices: dict con nodos, costo (COP/t) y km.
+    Devuelve None si no hay ruta."""
+    dist, previo = dijkstra(G, origen)
     if destino not in dist:
         return None
-    nodos = reconstruir(previo, destino)
-    tramos = []
-    for a, b in zip(nodos[:-1], nodos[1:]):
-        d = G.edges[a, b]
-        tramos.append({
-            "id_arista": d.get("id_arista"),
-            "tipo": d["tipo"],
-            "via": ", ".join(d["codigos_via"]) or "-",
-            "nombre": " / ".join(d["nombres"]) or "(sin nombre)",
-            "km": d["longitud_m"] / 1000,
-            "costo": d[peso],
-            "calzada": d["calzada"],
-            "concesion": ", ".join(d["concesiones"]) or "-",
-        })
-    return {
-        "origen": origen, "destino": destino,
-        "costo": dist[destino],
-        "unidad": modulo_costo.UNIDAD_COSTO,
-        "km": sum(t["km"] for t in tramos),
-        "nodos": nodos,
-        "tramos": tramos,
-    }
+    nodos = camino(previo, destino)
+    km = sum(G.edges[a, b]["km"] for a, b in zip(nodos[:-1], nodos[1:]))
+    return {"nodos": nodos, "costo": dist[destino], "km": km}
+
+
+def costos_desde(G, od):
+    """c_G(o, d): un Dijkstra por cada ciudad de origen. Devuelve {o: (dist, previo)}."""
+    return {o: dijkstra(G, o) for o in od["o"].unique()}

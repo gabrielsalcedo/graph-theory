@@ -1,0 +1,7 @@
+[A] 652 tramos de INVIAS (11 partes unidas); se quitan 12 'fuera de servicio'.
+[A] Las 50 ciudades con más carga suman 74.5 % de las toneladas.
+[B] 6020 líneas; componentes conexas antes de limpiar: 464.
+[B] 1341 líneas duplicadas o de segunda calzada eliminadas.
+[B] Con tolerancia de 50 m: 5694 segmentos y 22 componentes conexas.
+[C] 50 de 50 ciudades conectadas a la red.
+[C] Red detallada: 842 nodos, 972 aristas, 11,866 km, conexa = True.

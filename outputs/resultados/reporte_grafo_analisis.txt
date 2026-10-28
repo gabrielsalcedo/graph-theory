@@ -1,0 +1,5 @@
+[D] 50 ciudades -> 38 áreas; se toman las 25 con más carga.
+[D] Aristas que otro camino iguala en costo: 2 eliminadas.
+[D] GRAFO DE ANÁLISIS: 53 vértices (25 ciudades + 28 cruces), 77 aristas; conexo = True; planar = True.
+[D] Costo de las rutas en el grafo de análisis / en la red detallada: media 1.040, máxima 1.214, exactas 19.3 %.
+[E] Carga O-D entre las ciudades del grafo: 43,718,236 t (47.0 % del total) en 571 pares.
