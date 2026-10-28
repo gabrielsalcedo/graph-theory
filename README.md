@@ -220,7 +220,7 @@ Las demás figuras: `red_detallada.png` y `grafo_analisis.png` (paso 08, modelam
 Los tres documentos toman las figuras de `outputs/figuras/` con `\graphicspath`, así que
 se compilan desde su propia carpeta (por ejemplo, `latexmk -pdf final.tex` dentro de
 `informe/final/`). Con TinyTeX hacen falta estos paquetes:
-`tlmgr install ieeetran cite algorithms algorithmicx float xurl booktabs beamer courier times psnfss`. En Overleaf, suba la carpeta `informe/` y `outputs/figuras/` conservando
+`tlmgr install ieeetran cite algorithms algorithmicx float xurl booktabs beamer courier times psnfss preprint`. En Overleaf, suba la carpeta `informe/` y `outputs/figuras/` conservando
 esa estructura. El informe final cita en la Sección VIII las cifras de `outputs/resultados/`:
 Tabla III sale de `cierres_aristas.csv`, y la comparación de los tres ángulos de
 `tres_angulos.csv` y de la salida del paso 07.
