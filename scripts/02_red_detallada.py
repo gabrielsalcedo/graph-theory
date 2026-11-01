@@ -1,5 +1,5 @@
 """
-PASO 02 — De la capa de INVIAS a la red detallada D (841 nodos, 970 aristas).
+PASO 02 — De la capa de INVIAS a la red detallada D (842 nodos, 972 aristas).
 
   A  Leer la red (une las 11 partes de data/raw/invias/) y los municipios
   B  Limpiar el mapa: duplicados, cruces sin vértice común, extremos separados

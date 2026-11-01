@@ -3,7 +3,7 @@ PARÁMETROS DEL PROYECTO (único archivo que se cambia).
 
 Todas las rutas, parámetros del modelo y constantes de los scripts están aquí.
 Si cambia un parámetro de las secciones 3 a 6, vuelva a correr ejecutar_todo.py.
-La justificación de cada valor está en RECUENTO.md.
+La justificación de cada valor está en el informe final (informe/final/) y en AUDITORIA.md.
 """
 
 from pathlib import Path
