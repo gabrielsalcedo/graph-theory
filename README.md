@@ -1,6 +1,6 @@
 # Vulnerabilidad de la red vial primaria de carga de Colombia
 
-Proyecto del curso **Teoría de Grafos** (prof. Daniel Bojacá, MACC, Universidad del
+Proyecto del curso **Teoría de Grafos** (prof. Daniel Bojacá, Universidad del
 Rosario, 2026-II). Autores: David Catral, Gabriel Salcedo e Isaac Suárez (Escuela de
 Economía y Negocios).
 
@@ -16,8 +16,7 @@ diferencias están los tramos sobrestimados o subestimados.
 vértices son las 25 ciudades (o áreas metropolitanas) con más carga y 28 cruces donde se
 separan las rutas; las aristas son 77 corredores viales. El peso de cada arista es el
 costo de mover una tonelada por ella, `w = 248,6 COP/t-km × km`. La demanda es la matriz
-origen-destino de toneladas del RNDC 2015. El paso a paso y las decisiones están en
-[AUDITORIA.md](AUDITORIA.md).
+origen-destino de toneladas del RNDC 2015.
 
 ![Grafo de análisis](outputs/figuras/grafo_analisis_mapa.png)
 
