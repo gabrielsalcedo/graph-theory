@@ -7,6 +7,7 @@ Modelamiento (necesitan los pasos 02 y 03):
   grafo_analisis.png           grafo de análisis como diagrama
 Implementación (solo si ya existen las tablas de los pasos 05 y 07):
   intermediacion.png, carga_vs_intermediacion.png, cuadrantes.png, mapa_criticos.png
+  mapa_poster.png              mapa de grupos en palabras sencillas (póster)
 
 Salidas en outputs/figuras/.
 """
@@ -37,6 +38,7 @@ def main():
         cierres = pd.read_csv(tabla)
         figuras.cuadrantes(cierres)
         figuras.mapa_criticos(G, cierres)
+        figuras.mapa_poster(G, cierres)
     else:
         print(f"  (falta {tabla.name}: corra 05_simulacion_cierres.py)")
 

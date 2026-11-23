@@ -7,6 +7,7 @@ Figuras de los documentos. Solo dibujan: leen el grafo y las tablas de los pasos
   carga_vs_intermediacion()  posición en la red vs carga que realmente pasa (paso 07)
   cuadrantes()               carga vs costo de la alternativa, los cuatro grupos (paso 05)
   mapa_criticos()            mapa de las aristas por grupo (paso 05)
+  mapa_poster()              el mismo mapa en palabras sencillas, para el póster (paso 05)
 """
 
 import matplotlib.pyplot as plt
@@ -33,11 +34,13 @@ def lineas(G, aristas):
     return [np.array(G.edges[e]["geometry"].coords) / 1000 for e in aristas]
 
 
-def guardar(fig, nombre):
-    """Guarda la figura en outputs/figuras/ y la cierra."""
+def guardar(fig, nombre, recortar=False):
+    """Guarda la figura en outputs/figuras/ y la cierra. recortar=True quita el margen
+    blanco alrededor del dibujo (para el póster)."""
     c.FIGURAS.mkdir(parents=True, exist_ok=True)
     fig.tight_layout()
-    fig.savefig(c.FIGURAS / nombre, dpi=c.DPI_FIGURAS, facecolor="white")
+    extra = {"bbox_inches": "tight", "pad_inches": 0.05} if recortar else {}
+    fig.savefig(c.FIGURAS / nombre, dpi=c.DPI_FIGURAS, facecolor="white", **extra)
     plt.close(fig)
     print("  " + str(c.FIGURAS / nombre))
 
@@ -231,3 +234,20 @@ def mapa_criticos(G, t):
     ax.autoscale()
     ax.legend(loc="upper left", frameon=False)
     guardar(fig, "mapa_criticos.png")
+
+
+def mapa_poster(G, t):
+    """mapa_poster.png: el mismo mapa de grupos, sin título ni leyenda (la leyenda, en
+    palabras sencillas, la dibuja el póster). Numera los 6 cierres más graves.
+    t = cierres_aristas.csv."""
+    arista = {d["id_arista"]: (u, v) for u, v, d in G.edges(data=True)}
+    fig, ax = mapa_base("")
+    for g, color in list(COLOR_GRUPO.items())[::-1]:
+        s = t[t["grupo"] == g]
+        ancho = 2.6 if g == "Crítico" else 1.4
+        ax.add_collection(LineCollection(lineas(G, [arista[i] for i in s["id_arista"]]),
+                                         colors=color, linewidths=ancho, zorder=2))
+    ciudades_en(ax, G)
+    numerar(ax, G, [arista[i] for i in t.sort_values("rango").head(6)["id_arista"]], TINTA)
+    ax.autoscale()
+    guardar(fig, "mapa_poster.png", recortar=True)

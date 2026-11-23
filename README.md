@@ -216,6 +216,7 @@ Las demás figuras: `red_detallada.png` y `grafo_analisis.png` (paso 08, modelam
 | `informe/entrega2/` | Segunda entrega (planteamiento, marco teórico, modelo) |
 | `informe/final/` | Informe final: lo anterior más Implementación, Resultados y Conclusiones (`final.pdf` ya compilado) |
 | `informe/presentacion/` | Diapositivas en Beamer (`presentacion.pdf` ya compilado) y guion de 7 minutos (`guion.md`) |
+| `informe/poster/` | Póster A0 para público general (`poster.pdf` ya compilado); usa `outputs/figuras/mapa_poster.png` |
 
 Los tres documentos toman las figuras de `outputs/figuras/` con `\graphicspath`, así que
 se compilan desde su propia carpeta (por ejemplo, `latexmk -pdf final.tex` dentro de
